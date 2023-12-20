@@ -21,304 +21,148 @@ public class tbGeneticAlgo {
     }
 
     public double calcFitness(tbIndividual individual) {
-        // Track number of correct genes
         int correctGenes = 0;
-        // Loop over individual's genes
-        for (int i = 0; i < individual.getChromosomeLength(); i++) {
-            for (int j = 0; j < individual.getChromosomeLength(); j++) {
-                if (individual.getGene(i, j) == 1) { // 1 => hitam
-                    // jika berada di baris paling atas
-                    if (i == 0) {
-                        if (j == 0) { // kolom awal
-                            // cek angka di matrix soal selama bukan angka 0, maka angka di baris-kolom tsb
-                            // bisa dikurangkan
-                            int countPengurangan = 0;
-                            if (copyMatrixSoal[i][j] != 0) {
-                                copyMatrixSoal[i][j]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i][j + 1] != 0) {
-                                copyMatrixSoal[i][j + 1]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i + 1][j] != 0) {
-                                copyMatrixSoal[i + 1][j]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i + 1][j + 1] != 0) {
-                                copyMatrixSoal[i + 1][j + 1]--;
-                                countPengurangan++;
-                            }
-                            // jika ternyata ada pengurangan di dalam copy matrix maka adalah correct genes
-                            if (countPengurangan != 0) {
-                                correctGenes++;
-                            }
-                        } else if (j == 4) { // kolom akhir
-                            // cek angka di matrix soal selama bukan angka 0, maka angka di baris-kolom tsb
-                            // bisa dikurangkan
-                            int countPengurangan = 0;
-                            if (copyMatrixSoal[i][j] != 0) {
-                                copyMatrixSoal[i][j]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i][j - 1] != 0) {
-                                copyMatrixSoal[i][j - 1]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i + 1][j] != 0) {
-                                copyMatrixSoal[i + 1][j]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i + 1][j - 1] != 0) {
-                                copyMatrixSoal[i + 1][j - 1]--;
-                                countPengurangan++;
-                            }
-                            // jika ternyata ada pengurangan di dalam copy matrix maka adalah correct genes
-                            if (countPengurangan != 0) {
-                                correctGenes++;
-                            }
-                        } else { // bukan kolom akhir maupun awal
-                            // cek angka di matrix soal selama bukan angka 0, maka angka di baris-kolom tsb
-                            // bisa dikurangkan
-                            int countPengurangan = 0;
-                            if (copyMatrixSoal[i][j] != 0) {
-                                copyMatrixSoal[i][j]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i][j + 1] != 0) {
-                                copyMatrixSoal[i][j + 1]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i + 1][j] != 0) {
-                                copyMatrixSoal[i + 1][j]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i + 1][j + 1] != 0) {
-                                copyMatrixSoal[i + 1][j + 1]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i][j - 1] != 0) {
-                                copyMatrixSoal[i][j - 1]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i + 1][j - 1] != 0) {
-                                copyMatrixSoal[i + 1][j - 1]--;
-                                countPengurangan++;
-                            }
-                            // jika ternyata ada pengurangan di dalam copy matrix maka adalah correct genes
-                            if (countPengurangan != 0) {
-                                correctGenes++;
-                            }
-                        }
-                    } else if (i == 4) { // baris akhir
-                        if (j == 0) { // kolom awal
-                            int countPengurangan = 0;
-                            if (copyMatrixSoal[i][j] != 0) {
-                                copyMatrixSoal[i][j]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i][j + 1] != 0) {
-                                copyMatrixSoal[i][j + 1]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i - 1][j] != 0) {
-                                copyMatrixSoal[i - 1][j]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i - 1][j + 1] != 0) {
-                                copyMatrixSoal[i - 1][j + 1]--;
-                                countPengurangan++;
-                            }
-                            // jika ternyata ada pengurangan di dalam copy matrix maka adalah correct genes
-                            if (countPengurangan != 0) {
-                                correctGenes++;
-                            }
-                        } else if (j == 4) { // kolom akhir
-                            int countPengurangan = 0;
-                            if (copyMatrixSoal[i][j] != 0) {
-                                copyMatrixSoal[i][j]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i][j - 1] != 0) {
-                                copyMatrixSoal[i][j - 1]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i - 1][j] != 0) {
-                                copyMatrixSoal[i - 1][j]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i - 1][j - 1] != 0) {
-                                copyMatrixSoal[i - 1][j - 1]--;
-                                countPengurangan++;
-                            }
-                            // jika ternyata ada pengurangan di dalam copy matrix maka adalah correct genes
-                            if (countPengurangan != 0) {
-                                correctGenes++;
-                            }
-                        } else {
-                            int countPengurangan = 0;
-                            if (copyMatrixSoal[i][j] != 0) {
-                                copyMatrixSoal[i][j]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i][j + 1] != 0) {
-                                copyMatrixSoal[i][j + 1]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i][j - 1] != 0) {
-                                copyMatrixSoal[i][j - 1]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i - 1][j] != 0) {
-                                copyMatrixSoal[i - 1][j]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i - 1][j + 1] != 0) {
-                                copyMatrixSoal[i - 1][j + 1]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i - 1][j - 1] != 0) {
-                                copyMatrixSoal[i - 1][j - 1]--;
-                                countPengurangan++;
-                            }
-                            // jika ternyata ada pengurangan di dalam copy matrix maka adalah correct genes
-                            if (countPengurangan != 0) {
-                                correctGenes++;
-                            }
-                        }
-                    } else { // baris bukan di atas atau bawah
-                        if (j == 0) { // kolom awal
-                            int countPengurangan = 0;
-                            if (copyMatrixSoal[i][j] != 0) {
-                                copyMatrixSoal[i][j]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i][j + 1] != 0) {
-                                copyMatrixSoal[i][j + 1]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i - 1][j] != 0) {
-                                copyMatrixSoal[i - 1][j]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i - 1][j + 1] != 0) {
-                                copyMatrixSoal[i - 1][j + 1]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i + 1][j] != 0) {
-                                copyMatrixSoal[i + 1][j]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i + 1][j + 1] != 0) {
-                                copyMatrixSoal[i + 1][j + 1]--;
-                                countPengurangan++;
-                            }
-                            // jika ternyata ada pengurangan di dalam copy matrix maka adalah correct genes
-                            if (countPengurangan != 0) {
-                                correctGenes++;
-                            }
-                        } else if (j == 4) { // kolom akhir
-                            int countPengurangan = 0;
-                            if (copyMatrixSoal[i][j] != 0) {
-                                copyMatrixSoal[i][j]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i][j - 1] != 0) {
-                                copyMatrixSoal[i][j - 1]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i - 1][j] != 0) {
-                                copyMatrixSoal[i - 1][j]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i - 1][j - 1] != 0) {
-                                copyMatrixSoal[i - 1][j - 1]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i + 1][j] != 0) {
-                                copyMatrixSoal[i + 1][j]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i + 1][j - 1] != 0) {
-                                copyMatrixSoal[i + 1][j - 1]--;
-                                countPengurangan++;
-                            }
-                            // jika ternyata ada pengurangan di dalam copy matrix maka adalah correct genes
-                            if (countPengurangan != 0) {
-                                correctGenes++;
-                            }
-                        } else {
-                            int countPengurangan = 0;
-                            if (copyMatrixSoal[i][j] != 0) {
-                                copyMatrixSoal[i][j]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i][j - 1] != 0) {
-                                copyMatrixSoal[i][j - 1]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i][j + 1] != 0) {
-                                copyMatrixSoal[i][j + 1]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i - 1][j] != 0) {
-                                copyMatrixSoal[i - 1][j]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i - 1][j - 1] != 0) {
-                                copyMatrixSoal[i - 1][j - 1]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i - 1][j + 1] != 0) {
-                                copyMatrixSoal[i - 1][j + 1]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i + 1][j] != 0) {
-                                copyMatrixSoal[i + 1][j]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i + 1][j - 1] != 0) {
-                                copyMatrixSoal[i + 1][j - 1]--;
-                                countPengurangan++;
-                            }
-                            if (copyMatrixSoal[i + 1][j + 1] != 0) {
-                                copyMatrixSoal[i + 1][j + 1]--;
-                                countPengurangan++;
-                            }
-                            // jika ternyata ada pengurangan di dalam copy matrix maka adalah correct genes
-                            if (countPengurangan != 0) {
-                                correctGenes++;
-                            }
-                        }
-                    }
-                }
+        int numberGenes = countNumber();
+
+        // everyNumberNeighbor[][0] -> menyimpan angka pada matrix
+        // everyNumberNeighbor[][1] -> menyimpan jumlah neighbor
+        // everyNumberNeighbor[][2] -> menyimpan jumlah overflow (neighbor yang kelebihan)
+        int[][] everyNumberNeighbor = new int[numberGenes][3];
+
+        // Loop ke masing-masing angka dalam matrix, jika -1 maka skip
+        int k = 0;
+        for (int i = 0; i < this.matrixSoal.length; i++) {
+            for (int j = 0; j < this.matrixSoal[0].length; j++) {
+                int[] temp = countNeighbor(individual, i, j);
+                everyNumberNeighbor[k][0] = this.matrixSoal[i][j];
+                everyNumberNeighbor[k][1] = temp[0];
+                everyNumberNeighbor[k][2] = temp[1];
+
+                // Apabila neighbor value dan angka yang dicek sama, disertai jumlah overflow yang 0
+                // maka perhitungan jumlah neighbor adalah benar (gen yang benar tambah 1)
+                if(everyNumberNeighbor[k][0] == everyNumberNeighbor[k][1] &&
+                   everyNumberNeighbor[k][2] == 0) correctGenes++;
+                k++;
             }
         }
 
-        // Calculate fitness
-        double fitness = (double) correctGenes;
-        int countZero = 0;
-        for (int i = 0; i < copyMatrixSoal.length; i++) {
-            for (int j = 0; j < copyMatrixSoal[0].length; j++) {
-                if (copyMatrixSoal[i][j] == 0) {
-                    countZero++;
-                }
+        // Hitung fitness
+        double fitness = correctGenes*1.0 / numberGenes + 1;    // variabel untuk store hasil fitness
+        double tempNeighbor = 0.0;
+        double tempOverflow = 0.0;
+        for(int i = 0; i<numberGenes; i++){
+            if(everyNumberNeighbor[i][0] != 0) {
+                tempNeighbor += everyNumberNeighbor[i][1] * 1.0 / everyNumberNeighbor[i][0];
+                tempOverflow += everyNumberNeighbor[i][2] * 1.0 / everyNumberNeighbor[i][0];
+            }
+            else{
+                tempNeighbor += 0;
+                tempOverflow += everyNumberNeighbor[i][2] * 2.0;
             }
         }
-        if (countZero < 3) {
-            fitness = fitness * 100;
-        } else if (countZero < 5) {
-            fitness = fitness * 200;
-        } else if (countZero < 8) {
-            fitness = fitness * 300;
-        } else if (countZero < 13) {
-            fitness = fitness * 400;
-        } else {
-            fitness = fitness * 500;
-        }
+        fitness += tempNeighbor - tempOverflow;
+
         // Store fitness
         individual.setFitness(fitness);
         return fitness;
+    }
+
+    private int countNumber(){
+        int counter = 0;
+        for(int i = 0; i<5; i++){
+            for(int j = 0; j<5; j++){
+                if(this.matrixSoal[i][j] == -1) continue;
+                else{
+                    counter++;
+                }
+            }
+        }
+        return counter;
+    }
+
+    private int[] countNeighbor(tbIndividual individual, int i, int j) {
+        int[] arr = new int[2]; // int[2] -> int[0] untuk menyimpan hasil dan int[1] untuk menyimpan overflow
+
+        int[][] tempMatrix = individual.getChromosomeMatrix();
+
+        if(this.matrixSoal[i][j] != -1) {
+            if(this.matrixSoal[i][j] != 0 && this.matrixSoal[i][j] != 9) {
+                // Cek 1 baris di atasnya
+                if (i != 0) {
+                    if (j != 0) arr[0] += tempMatrix[i - 1][j - 1];
+                    arr[0] += tempMatrix[i - 1][j];
+                    if (j != this.matrixSoal[0].length - 1) arr[0] += tempMatrix[i - 1][j + 1];
+                }
+
+                // Cek pada baris tersebut
+                if (j != 0) arr[0] += tempMatrix[i][j - 1];
+                arr[0] += tempMatrix[i][j];
+                if (j != this.matrixSoal[0].length - 1) arr[0] += tempMatrix[i][j + 1];
+
+                // Cek 1 baris dibawahnya
+                if (i != this.matrixSoal.length - 1) {
+                    if (j != 0) {
+                        arr[0] += tempMatrix[i + 1][j - 1];
+                    }
+                    arr[0] += tempMatrix[i + 1][j];
+                    if (j != this.matrixSoal[0].length - 1) arr[0] += tempMatrix[i + 1][j + 1];
+                }
+
+                if(arr[0] > this.matrixSoal[i][j]){
+                    arr[1] = arr[0]-this.matrixSoal[i][j];
+                    arr[0] = this.matrixSoal[i][j];
+                }
+            }
+
+            else if (this.matrixSoal[i][j] == 0) {
+                // Cek 1 baris di atasnya
+                arr[0] = 0;
+                if (i != 0) {
+                    if (j != 0) arr[1] += tempMatrix[i - 1][j - 1];
+                    arr[1] += tempMatrix[i - 1][j];
+                    if (j != this.matrixSoal[0].length - 1) arr[1] += tempMatrix[i - 1][j + 1];
+                }
+
+                // Cek pada baris tersebut
+                if (j != 0) arr[1] += tempMatrix[i][j - 1];
+                arr[1] += tempMatrix[i][j];
+                if (j != this.matrixSoal[0].length - 1) arr[1] += tempMatrix[i][j + 1];
+
+                // Cek 1 baris dibawahnya
+                if (i != this.matrixSoal.length - 1) {
+                    if (j != 0) {
+                        arr[1] += tempMatrix[i + 1][j - 1];
+                    }
+                    arr[1] += tempMatrix[i + 1][j];
+                    if (j != this.matrixSoal[0].length - 1) arr[1] += tempMatrix[i + 1][j + 1];
+                }
+            }
+
+            else if (this.matrixSoal[i][j] == 9) {
+                // Cek 1 baris di atasnya
+                arr[1] = 0;
+                if (i != 0) {
+                    if (j != 0) arr[1] += tempMatrix[i - 1][j - 1];
+                    arr[1] += tempMatrix[i - 1][j];
+                    if (j != this.matrixSoal[0].length - 1) arr[1] += tempMatrix[i - 1][j + 1];
+                }
+
+                // Cek pada baris tersebut
+                if (j != 0) arr[1] += tempMatrix[i][j - 1];
+                arr[1] += tempMatrix[i][j];
+                if (j != this.matrixSoal[0].length - 1) arr[1] += tempMatrix[i][j + 1];
+
+                // Cek 1 baris dibawahnya
+                if (i != this.matrixSoal.length - 1) {
+                    if (j != 0) {
+                        arr[1] += tempMatrix[i + 1][j - 1];
+                    }
+                    arr[1] += tempMatrix[i + 1][j];
+                    if (j != this.matrixSoal[0].length - 1) arr[1] += tempMatrix[i + 1][j + 1];
+                }
+            }
+        }
+        return arr;
     }
 
     public void evalPopulation(tbPopulation population) {
