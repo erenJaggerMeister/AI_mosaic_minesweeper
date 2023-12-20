@@ -4,10 +4,11 @@ import java.util.Scanner;
 public class tbAllOnesGA {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int[][] matrixMosaic = new int[5][5];
+        int matrixSize = sc.nextInt();
+        int[][] matrixMosaic = new int[matrixSize][matrixSize];
         // inisialisasi
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
+        for (int i = 0; i < matrixSize; i++) {
+            for (int j = 0; j < matrixSize; j++) {
                 matrixMosaic[i][j] = sc.nextInt();
                 // input 0-9, -1 kalo kosong
                 // 10102
@@ -19,7 +20,7 @@ public class tbAllOnesGA {
         }
 
         tbGeneticAlgo ga = new tbGeneticAlgo(100, 0.05, 0.95, 0, matrixMosaic);
-        tbPopulation population = ga.initPopulation(25);
+        tbPopulation population = ga.initPopulation(matrixSize*matrixSize);
         ga.evalPopulation(population);
         int generation = 1;
         while (ga.isTerminationConditionMet(population) == true) {

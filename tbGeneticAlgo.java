@@ -69,8 +69,8 @@ public class tbGeneticAlgo {
 
     private int countNumber(){
         int counter = 0;
-        for(int i = 0; i<5; i++){
-            for(int j = 0; j<5; j++){
+        for(int i = 0; i<this.matrixSoal.length; i++){
+            for(int j = 0; j<this.matrixSoal[0].length; j++){
                 if(this.matrixSoal[i][j] == -1) continue;
                 else{
                     counter++;
@@ -228,11 +228,11 @@ public class tbGeneticAlgo {
                     if (0.5 > Math.random()) {
                         // offspring.setGene(geneIndex,
                         // parent1.getGene(geneIndex));
-                        offspring.setGene(geneIndex, geneIndex, parent1.getGene(geneIndex, geneIndex));
+                        offspring.setGene(geneIndex, parent1.getGene(geneIndex));
                     } else {
                         // offspring.setGene(geneIndex,
                         // parent2.getGene(geneIndex));
-                        offspring.setGene(geneIndex, geneIndex, parent2.getGene(geneIndex, geneIndex));
+                        offspring.setGene(geneIndex, parent2.getGene(geneIndex));
                     }
                 }
                 // Add offspring to new population
