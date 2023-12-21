@@ -1,7 +1,9 @@
+import java.util.Arrays;
+
 public class tbGeneticAlgo {
     private int populationSize;
     private double mutationRate;
-    private double crossoverRate;
+    private final double crossoverRate;
     private int elitismCount;
     private int[][] matrixSoal;
 
@@ -51,13 +53,15 @@ public class tbGeneticAlgo {
                 tempOverflow += everyNumberNeighbor[i][2] * 1.0 / everyNumberNeighbor[i][0];
             } else {
                 tempNeighbor += 1; // anggap 0/0 adalah 1, supaya tidak error
-                tempOverflow += everyNumberNeighbor[i][2] * 2.0; // penalti dengan beban yang lebih berat dari 1, yaitu
-                                                                 // dikali 2
+                tempOverflow += everyNumberNeighbor[i][2] * 2.0;
+                // penalti dengan beban yang lebih berat dari 1, yaitu
+                // dikali 2
             }
         }
         double fitness = (tempNeighbor - tempOverflow) / numberGenes; // variabel untuk store fitness
 
         // Store fitness
+        System.out.println(tempNeighbor + " " + tempOverflow + "\n" + "Fitness : " + fitness);
         individual.setFitness(fitness);
         return fitness;
     }
@@ -77,17 +81,16 @@ public class tbGeneticAlgo {
     }
 
     private int[] countNeighbor(tbIndividual individual, int i, int j) {
-        int[] arr = new int[2]; // int[2] -> int[0] untuk menyimpan hasil dan int[1] untuk menyimpan overflow
+        // int[2] -> int[0] untuk menyimpan hasil dan int[1] untuk menyimpan overflow
+        int[] arr = new int[2];
         int[][] tempMatrix = individual.getChromosomeMatrix(); // mengubah nxn kromosom menjadi matrix Nxn
 
         if (this.matrixSoal[i][j] != 0 && this.matrixSoal[i][j] != 9) {
             // Cek 1 baris di atasnya
             if (i != 0) {
-                if (j != 0)
-                    arr[0] += tempMatrix[i - 1][j - 1];
+                if (j != 0) arr[0] += tempMatrix[i - 1][j - 1];
                 arr[0] += tempMatrix[i - 1][j];
-                if (j != this.matrixSoal[0].length - 1)
-                    arr[0] += tempMatrix[i - 1][j + 1];
+                if (j != this.matrixSoal[0].length - 1) arr[0] += tempMatrix[i - 1][j + 1];
             }
 
             // Cek pada baris tersebut
@@ -170,6 +173,7 @@ public class tbGeneticAlgo {
                     arr[1] += tempMatrix[i + 1][j + 1];
             }
         }
+//        System.out.println(Arrays.toString(arr));
         return arr;
     }
 
@@ -182,14 +186,9 @@ public class tbGeneticAlgo {
     }
 
     public boolean isTerminationConditionMet(tbPopulation population) {
-        // for (tbIndividual individual : population.getIndividuals()) {
-        // if (individual.getFitness() == 1) {
-        // return true;
-        // }
-        // }
-        // return false;
         for (tbIndividual x : population.getIndividuals()) {
             System.out.println(x.getFitness());
+            System.out.println(Arrays.deepToString(x.getChromosomeMatrix()));
             if (x.getFitness() == 1) {
                 return true;
             }
@@ -257,32 +256,6 @@ public class tbGeneticAlgo {
             tbIndividual individual = population.getFittes(populationIndex);
             // Loop over individual's genes
             for (int geneIndex = 0; geneIndex < individual.getChromosomeLength(); geneIndex++) {
-                // // Skip mutation if this is an elite individual
-                // if (populationIndex >= this.elitismCount) {
-                // // Does this gene need mutation?
-                // if (this.mutationRate > Math.random()) {
-                // // Get new gene
-                // int newGene = 1;
-
-                // if (individual.getGene(geneIndex) == 1) {
-                // newGene = 0;
-                // }
-                // // Mutate gene
-                // individual.setGene(geneIndex, newGene);
-                // }
-                // }
-                // for (int geneIndex_y = 0; geneIndex_y < individual.getChromosomeLength();
-                // geneIndex_y++) {
-                // if (populationIndex >= this.elitismCount) {
-                // if (this.mutationRate > Math.random()) {
-                // int newGene = 1;
-                // if (individual.getGene(geneIndex_x, geneIndex_y) == 1) {
-                // newGene = 0;
-                // }
-                // individual.setGene(geneIndex_x, geneIndex_y, newGene);
-                // }
-                // }
-                // }
                 if (populationIndex >= this.elitismCount) {
                     if (this.mutationRate > Math.random()) {
                         int newGene = 1;

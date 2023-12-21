@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.*;
 
 public class tbPopulation {
@@ -32,6 +33,11 @@ public class tbPopulation {
                 return 0;
             }
         });
+        System.out.println("INI PRINT DARI GETFITTES");
+        for (int i = 0; i<this.population.length; i++){
+            System.out.println(i + " :");
+            System.out.println(getIndividual(i));
+        }
         return this.population[offset];
     }
 
@@ -53,15 +59,5 @@ public class tbPopulation {
 
     public tbIndividual getIndividual(int offset) {
         return population[offset];
-    }
-
-    public void shuffle() {
-        Random rnd = new Random();
-        for (int i = population.length - 1; i > 0; i--) {
-            int index = rnd.nextInt(i + 1);
-            tbIndividual x = population[index];
-            population[index] = population[i];
-            population[i] = x;
-        }
     }
 }
