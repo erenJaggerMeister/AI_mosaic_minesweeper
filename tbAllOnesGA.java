@@ -38,9 +38,9 @@ public class tbAllOnesGA {
             population = ga.crossoverPopulation(population);
             // Apply mutation
             population = ga.mutatePopulation(population);
-            // Evaluate population
+            // Evaluasi populasi
             ga.evalPopulation(population);
-            // Increment the current generation
+            // Increment generasinya
             generation++;
         }
 
