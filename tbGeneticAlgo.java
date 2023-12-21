@@ -26,7 +26,8 @@ public class tbGeneticAlgo {
 
         // everyNumberNeighbor[][0] -> menyimpan angka pada matrix
         // everyNumberNeighbor[][1] -> menyimpan jumlah neighbor
-        // everyNumberNeighbor[][2] -> menyimpan jumlah overflow (neighbor yang kelebihan)
+        // everyNumberNeighbor[][2] -> menyimpan jumlah overflow (neighbor yang
+        // kelebihan)
         int[][] everyNumberNeighbor = new int[numberGenes][3];
 
         // Loop ke masing-masing angka dalam matrix, jika -1 maka skip
@@ -38,24 +39,25 @@ public class tbGeneticAlgo {
                 everyNumberNeighbor[k][1] = temp[0];
                 everyNumberNeighbor[k][2] = temp[1];
 
-                // Apabila neighbor value dan angka yang dicek sama, disertai jumlah overflow yang 0
+                // Apabila neighbor value dan angka yang dicek sama, disertai jumlah overflow
+                // yang 0
                 // maka perhitungan jumlah neighbor adalah benar (gen yang benar tambah 1)
-                if(everyNumberNeighbor[k][0] == everyNumberNeighbor[k][1] &&
-                   everyNumberNeighbor[k][2] == 0) correctGenes++;
+                if (everyNumberNeighbor[k][0] == everyNumberNeighbor[k][1] &&
+                        everyNumberNeighbor[k][2] == 0)
+                    correctGenes++;
                 k++;
             }
         }
 
         // Hitung fitness
-        double fitness = correctGenes*1.0 / numberGenes + 1;    // variabel untuk store hasil fitness
+        double fitness = correctGenes * 1.0 / numberGenes + 1; // variabel untuk store hasil fitness
         double tempNeighbor = 0.0;
         double tempOverflow = 0.0;
-        for(int i = 0; i<numberGenes; i++){
-            if(everyNumberNeighbor[i][0] != 0) {
+        for (int i = 0; i < numberGenes; i++) {
+            if (everyNumberNeighbor[i][0] != 0) {
                 tempNeighbor += everyNumberNeighbor[i][1] * 1.0 / everyNumberNeighbor[i][0];
                 tempOverflow += everyNumberNeighbor[i][2] * 1.0 / everyNumberNeighbor[i][0];
-            }
-            else{
+            } else {
                 tempNeighbor += 0;
                 tempOverflow += everyNumberNeighbor[i][2] * 2.0;
             }
@@ -67,12 +69,13 @@ public class tbGeneticAlgo {
         return fitness;
     }
 
-    private int countNumber(){
+    private int countNumber() {
         int counter = 0;
-        for(int i = 0; i<this.matrixSoal.length; i++){
-            for(int j = 0; j<this.matrixSoal[0].length; j++){
-                if(this.matrixSoal[i][j] == -1) continue;
-                else{
+        for (int i = 0; i < this.matrixSoal.length; i++) {
+            for (int j = 0; j < this.matrixSoal[0].length; j++) {
+                if (this.matrixSoal[i][j] == -1)
+                    continue;
+                else {
                     counter++;
                 }
             }
@@ -85,19 +88,23 @@ public class tbGeneticAlgo {
 
         int[][] tempMatrix = individual.getChromosomeMatrix();
 
-        if(this.matrixSoal[i][j] != -1) {
-            if(this.matrixSoal[i][j] != 0 && this.matrixSoal[i][j] != 9) {
+        if (this.matrixSoal[i][j] != -1) {
+            if (this.matrixSoal[i][j] != 0 && this.matrixSoal[i][j] != 9) {
                 // Cek 1 baris di atasnya
                 if (i != 0) {
-                    if (j != 0) arr[0] += tempMatrix[i - 1][j - 1];
+                    if (j != 0)
+                        arr[0] += tempMatrix[i - 1][j - 1];
                     arr[0] += tempMatrix[i - 1][j];
-                    if (j != this.matrixSoal[0].length - 1) arr[0] += tempMatrix[i - 1][j + 1];
+                    if (j != this.matrixSoal[0].length - 1)
+                        arr[0] += tempMatrix[i - 1][j + 1];
                 }
 
                 // Cek pada baris tersebut
-                if (j != 0) arr[0] += tempMatrix[i][j - 1];
+                if (j != 0)
+                    arr[0] += tempMatrix[i][j - 1];
                 arr[0] += tempMatrix[i][j];
-                if (j != this.matrixSoal[0].length - 1) arr[0] += tempMatrix[i][j + 1];
+                if (j != this.matrixSoal[0].length - 1)
+                    arr[0] += tempMatrix[i][j + 1];
 
                 // Cek 1 baris dibawahnya
                 if (i != this.matrixSoal.length - 1) {
@@ -105,11 +112,12 @@ public class tbGeneticAlgo {
                         arr[0] += tempMatrix[i + 1][j - 1];
                     }
                     arr[0] += tempMatrix[i + 1][j];
-                    if (j != this.matrixSoal[0].length - 1) arr[0] += tempMatrix[i + 1][j + 1];
+                    if (j != this.matrixSoal[0].length - 1)
+                        arr[0] += tempMatrix[i + 1][j + 1];
                 }
 
-                if(arr[0] > this.matrixSoal[i][j]){
-                    arr[1] = arr[0]-this.matrixSoal[i][j];
+                if (arr[0] > this.matrixSoal[i][j]) {
+                    arr[1] = arr[0] - this.matrixSoal[i][j];
                     arr[0] = this.matrixSoal[i][j];
                 }
             }
@@ -118,15 +126,19 @@ public class tbGeneticAlgo {
                 // Cek 1 baris di atasnya
                 arr[0] = 0;
                 if (i != 0) {
-                    if (j != 0) arr[1] += tempMatrix[i - 1][j - 1];
+                    if (j != 0)
+                        arr[1] += tempMatrix[i - 1][j - 1];
                     arr[1] += tempMatrix[i - 1][j];
-                    if (j != this.matrixSoal[0].length - 1) arr[1] += tempMatrix[i - 1][j + 1];
+                    if (j != this.matrixSoal[0].length - 1)
+                        arr[1] += tempMatrix[i - 1][j + 1];
                 }
 
                 // Cek pada baris tersebut
-                if (j != 0) arr[1] += tempMatrix[i][j - 1];
+                if (j != 0)
+                    arr[1] += tempMatrix[i][j - 1];
                 arr[1] += tempMatrix[i][j];
-                if (j != this.matrixSoal[0].length - 1) arr[1] += tempMatrix[i][j + 1];
+                if (j != this.matrixSoal[0].length - 1)
+                    arr[1] += tempMatrix[i][j + 1];
 
                 // Cek 1 baris dibawahnya
                 if (i != this.matrixSoal.length - 1) {
@@ -134,7 +146,8 @@ public class tbGeneticAlgo {
                         arr[1] += tempMatrix[i + 1][j - 1];
                     }
                     arr[1] += tempMatrix[i + 1][j];
-                    if (j != this.matrixSoal[0].length - 1) arr[1] += tempMatrix[i + 1][j + 1];
+                    if (j != this.matrixSoal[0].length - 1)
+                        arr[1] += tempMatrix[i + 1][j + 1];
                 }
             }
 
@@ -142,15 +155,19 @@ public class tbGeneticAlgo {
                 // Cek 1 baris di atasnya
                 arr[1] = 0;
                 if (i != 0) {
-                    if (j != 0) arr[1] += tempMatrix[i - 1][j - 1];
+                    if (j != 0)
+                        arr[1] += tempMatrix[i - 1][j - 1];
                     arr[1] += tempMatrix[i - 1][j];
-                    if (j != this.matrixSoal[0].length - 1) arr[1] += tempMatrix[i - 1][j + 1];
+                    if (j != this.matrixSoal[0].length - 1)
+                        arr[1] += tempMatrix[i - 1][j + 1];
                 }
 
                 // Cek pada baris tersebut
-                if (j != 0) arr[1] += tempMatrix[i][j - 1];
+                if (j != 0)
+                    arr[1] += tempMatrix[i][j - 1];
                 arr[1] += tempMatrix[i][j];
-                if (j != this.matrixSoal[0].length - 1) arr[1] += tempMatrix[i][j + 1];
+                if (j != this.matrixSoal[0].length - 1)
+                    arr[1] += tempMatrix[i][j + 1];
 
                 // Cek 1 baris dibawahnya
                 if (i != this.matrixSoal.length - 1) {
@@ -158,7 +175,8 @@ public class tbGeneticAlgo {
                         arr[1] += tempMatrix[i + 1][j - 1];
                     }
                     arr[1] += tempMatrix[i + 1][j];
-                    if (j != this.matrixSoal[0].length - 1) arr[1] += tempMatrix[i + 1][j + 1];
+                    if (j != this.matrixSoal[0].length - 1)
+                        arr[1] += tempMatrix[i + 1][j + 1];
                 }
             }
         }
@@ -180,17 +198,18 @@ public class tbGeneticAlgo {
         // }
         // }
         // return false;
-        boolean cekMatrisSoalKosong = true;
-        for (int i = 0; i < copyMatrixSoal.length; i++) {
-            for (int j = 0; j < copyMatrixSoal.length; j++) {
-                if (copyMatrixSoal[i][j] != 0) {
-                    cekMatrisSoalKosong = false;
-                    break;
-                }
-            }
-        }
-        copyMatrixSoal = matrixSoal;
-        return cekMatrisSoalKosong;
+        // boolean cekMatrisSoalKosong = true;
+        // for (int i = 0; i < copyMatrixSoal.length; i++) {
+        // for (int j = 0; j < copyMatrixSoal.length; j++) {
+        // if (copyMatrixSoal[i][j] != 0) {
+        // cekMatrisSoalKosong = false;
+        // break;
+        // }
+        // }
+        // }
+        // copyMatrixSoal = matrixSoal;
+        // return cekMatrisSoalKosong;
+        return false;
     }
 
     public tbIndividual selectParent(tbPopulation population) {
@@ -252,7 +271,7 @@ public class tbGeneticAlgo {
         for (int populationIndex = 0; populationIndex < population.size(); populationIndex++) {
             tbIndividual individual = population.getFittes(populationIndex);
             // Loop over individual's genes
-            for (int geneIndex_x = 0; geneIndex_x < individual.getChromosomeLength(); geneIndex_x++) {
+            for (int geneIndex = 0; geneIndex < individual.getChromosomeLength(); geneIndex++) {
                 // // Skip mutation if this is an elite individual
                 // if (populationIndex >= this.elitismCount) {
                 // // Does this gene need mutation?
@@ -267,15 +286,25 @@ public class tbGeneticAlgo {
                 // individual.setGene(geneIndex, newGene);
                 // }
                 // }
-                for (int geneIndex_y = 0; geneIndex_y < individual.getChromosomeLength(); geneIndex_y++) {
-                    if (populationIndex >= this.elitismCount) {
-                        if (this.mutationRate > Math.random()) {
-                            int newGene = 1;
-                            if (individual.getGene(geneIndex_x, geneIndex_y) == 1) {
-                                newGene = 0;
-                            }
-                            individual.setGene(geneIndex_x, geneIndex_y, newGene);
+                // for (int geneIndex_y = 0; geneIndex_y < individual.getChromosomeLength();
+                // geneIndex_y++) {
+                // if (populationIndex >= this.elitismCount) {
+                // if (this.mutationRate > Math.random()) {
+                // int newGene = 1;
+                // if (individual.getGene(geneIndex_x, geneIndex_y) == 1) {
+                // newGene = 0;
+                // }
+                // individual.setGene(geneIndex_x, geneIndex_y, newGene);
+                // }
+                // }
+                // }
+                if (populationIndex >= this.elitismCount) {
+                    if (this.mutationRate > Math.random()) {
+                        int newGene = 1;
+                        if (individual.getGene(geneIndex) == 1) {
+                            newGene = 0;
                         }
+                        individual.setGene(geneIndex, newGene);
                     }
                 }
             }

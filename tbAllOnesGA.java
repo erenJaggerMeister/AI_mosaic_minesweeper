@@ -19,8 +19,8 @@ public class tbAllOnesGA {
             }
         }
 
-        tbGeneticAlgo ga = new tbGeneticAlgo(100, 0.05, 0.95, 0, matrixMosaic);
-        tbPopulation population = ga.initPopulation(matrixSize*matrixSize);
+        tbGeneticAlgo ga = new tbGeneticAlgo(10, 0.05, 0.95, 0, matrixMosaic);
+        tbPopulation population = ga.initPopulation(matrixSize * matrixSize);
         ga.evalPopulation(population);
         int generation = 1;
         while (ga.isTerminationConditionMet(population) == true) {
