@@ -1,7 +1,5 @@
-import java.util.*;
-
 public class tbIndividual {
-    private int[] chromosome;
+    private final int[] chromosome;
     private double fitness = -1;
 
     public tbIndividual(int[] chromosome) {
@@ -24,14 +22,11 @@ public class tbIndividual {
     }
 
     public int[][] getChromosomeMatrix() {
-        int[][] tempMatrix = new int[(int) Math.sqrt((double) this.chromosome.length)][(int) Math
-                .sqrt((double) this.chromosome.length)];
-        for (int i = 0; i < (int) Math.sqrt((double) this.chromosome.length); i++) {
-            for (int j = 0; j < (int) Math.sqrt((double) this.chromosome.length); j++) {
-                // tempMatrix[i][j] = this.chromosome[j+i*this.chromosome.length];
-                // System.out.println("i = " + i + ", j = " + j);
-                int indexChromosome = j + (i * (int) Math.sqrt((double) this.chromosome.length));
-                // System.out.println(indexChromosome);
+        int sqrt = (int) Math.sqrt(this.chromosome.length);
+        int[][] tempMatrix = new int[sqrt][sqrt];
+        for (int i = 0; i < sqrt; i++) {
+            for (int j = 0; j < sqrt; j++) {
+                int indexChromosome = j + (i * sqrt);
                 tempMatrix[i][j] = this.chromosome[indexChromosome];
             }
         }
@@ -60,11 +55,14 @@ public class tbIndividual {
 
     @Override
     public String toString() {
-        String output = "";
-        for (int gene_1 = 0; gene_1 < this.chromosome.length; gene_1++) {
-            output += this.chromosome[gene_1];
-            output += "\n";
+        int sqrt = (int) Math.sqrt(this.chromosome.length);
+        StringBuilder output = new StringBuilder();
+        for (int gene_1 = 0; gene_1 < sqrt; gene_1++) {
+            for(int gene_2 = 0; gene_2 < sqrt; gene_2++) {
+                output.append(this.chromosome[gene_1]).append(" ");
+            }
+            output.append("\n");
         }
-        return output;
+        return output.toString();
     }
 }

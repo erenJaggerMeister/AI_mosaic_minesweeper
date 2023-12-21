@@ -37,19 +37,12 @@ public class tbGeneticAlgo {
                     everyNumberNeighbor[k][0] = this.matrixSoal[i][j];
                     everyNumberNeighbor[k][1] = temp[0];
                     everyNumberNeighbor[k][2] = temp[1];
-
-                    // Apabila neighbor value dan angka yang dicek sama, disertai jumlah overflow
-                    // yang 0
-                    // maka perhitungan jumlah neighbor adalah benar (gen yang benar tambah 1)
-                    if (everyNumberNeighbor[k][0] == everyNumberNeighbor[k][1] &&
-                            everyNumberNeighbor[k][2] == 0) correctGenes++;
                     k++;
                 }
             }
         }
 
         // Hitung fitness
-        double fitness = correctGenes * 1.0 / numberGenes + 1; // variabel untuk store hasil fitness
         double tempNeighbor = 0.0;
         double tempOverflow = 0.0;
         for (int i = 0; i < numberGenes; i++) {
@@ -57,11 +50,11 @@ public class tbGeneticAlgo {
                 tempNeighbor += everyNumberNeighbor[i][1] * 1.0 / everyNumberNeighbor[i][0];
                 tempOverflow += everyNumberNeighbor[i][2] * 1.0 / everyNumberNeighbor[i][0];
             } else {
-                tempNeighbor += 0;
-                tempOverflow += everyNumberNeighbor[i][2] * 2.0;
+                tempNeighbor += 1;                                      // anggap 0/0 adalah 1, supaya tidak error
+                tempOverflow += everyNumberNeighbor[i][2] * 2.0;        // penalti dengan beban yang lebih berat dari 1, yaitu dikali 2
             }
         }
-        fitness += tempNeighbor - tempOverflow;
+        double fitness = (tempNeighbor - tempOverflow) / numberGenes;   // variabel untuk store fitness
 
         // Store fitness
         individual.setFitness(fitness);
@@ -70,9 +63,9 @@ public class tbGeneticAlgo {
 
     private int countNumber() {
         int counter = 0;
-        for (int i = 0; i < this.matrixSoal.length; i++) {
+        for (int[] ints : this.matrixSoal) {
             for (int j = 0; j < this.matrixSoal[0].length; j++) {
-                if (this.matrixSoal[i][j] == -1)
+                if (ints[j] == -1)
                     continue;
                 else {
                     counter++;
