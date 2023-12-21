@@ -1,4 +1,3 @@
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class tbPopulation {
@@ -49,11 +48,6 @@ public class tbPopulation {
                 return 0;
             }
         });
-        System.out.println("INI PRINT DARI GETFITTES");
-        for (int i = 0; i<this.population.length; i++){
-            System.out.println(i + " :");
-            System.out.println(getIndividual(i));
-        }
         return this.population[offset];
     }
 
@@ -77,6 +71,10 @@ public class tbPopulation {
         return population[offset];
     }
 
+
+    /**
+     * Function to shuffle the individuals in a population
+     */
     public void shuffle() {
         Random rnd = new Random();
         for (int i = population.length - 1; i > 0; i--) {
