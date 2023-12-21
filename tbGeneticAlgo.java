@@ -150,27 +150,27 @@ public class tbGeneticAlgo {
             arr[1] = 0;
             if (i != 0) {
                 if (j != 0)
-                    arr[1] += tempMatrix[i - 1][j - 1];
-                arr[1] += tempMatrix[i - 1][j];
+                    arr[0] += tempMatrix[i - 1][j - 1];
+                arr[0] += tempMatrix[i - 1][j];
                 if (j != this.matrixSoal[0].length - 1)
-                    arr[1] += tempMatrix[i - 1][j + 1];
+                    arr[0] += tempMatrix[i - 1][j + 1];
             }
 
             // Cek pada baris tersebut
             if (j != 0)
-                arr[1] += tempMatrix[i][j - 1];
-            arr[1] += tempMatrix[i][j];
+                arr[0] += tempMatrix[i][j - 1];
+            arr[0] += tempMatrix[i][j];
             if (j != this.matrixSoal[0].length - 1)
-                arr[1] += tempMatrix[i][j + 1];
+                arr[0] += tempMatrix[i][j + 1];
 
             // Cek 1 baris dibawahnya
             if (i != this.matrixSoal.length - 1) {
                 if (j != 0) {
-                    arr[1] += tempMatrix[i + 1][j - 1];
+                    arr[0] += tempMatrix[i + 1][j - 1];
                 }
-                arr[1] += tempMatrix[i + 1][j];
+                arr[0] += tempMatrix[i + 1][j];
                 if (j != this.matrixSoal[0].length - 1)
-                    arr[1] += tempMatrix[i + 1][j + 1];
+                    arr[0] += tempMatrix[i + 1][j + 1];
             }
         }
 //        System.out.println(Arrays.toString(arr));
