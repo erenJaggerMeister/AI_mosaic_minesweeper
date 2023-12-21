@@ -61,8 +61,8 @@ public class tbGeneticAlgo {
         double fitness = (tempNeighbor - tempOverflow) / numberGenes; // variabel untuk store fitness
 
         // Store fitness
-        System.out.println(tempNeighbor + " " + tempOverflow + "\n" + "Fitness : " + fitness);
-        individual.setFitness(fitness);
+//        System.out.println(tempNeighbor + " " + tempOverflow + "\n" + "Fitness : " + fitness);
+//        individual.setFitness(fitness);
         return fitness;
     }
 

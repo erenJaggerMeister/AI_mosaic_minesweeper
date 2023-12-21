@@ -22,23 +22,22 @@ public class tbPopulation {
     }
 
     public tbIndividual getFittes(int offset) {
-        // TODO!!!
-        // Arrays.sort(this.population, new Comparator<tbIndividual>() {
-        // @Override
-        // public int compare(tbIndividual o1, tbIndividual o2) {
-        // if (o1.getFitness() > o2.getFitness()) {
-        // return -1;
-        // } else if (o1.getFitness() < o2.getFitness()) {
-        // return 1;
-        // }
-        // return 0;
-        // }
-        // });
-        System.out.println("INI PRINT DARI GETFITTES");
-        for (int i = 0; i < this.population.length; i++) {
-            System.out.println(i + " :");
-            System.out.println(getIndividual(i));
-        }
+         Arrays.sort(this.population, new Comparator<tbIndividual>() {
+         @Override
+             public int compare(tbIndividual o1, tbIndividual o2) {
+                 if (o1.getFitness() > o2.getFitness()) {
+                    return -1;
+                 } else if (o1.getFitness() < o2.getFitness()) {
+                    return 1;
+                 }
+                 return 0;
+             }
+         });
+//        System.out.println("INI PRINT DARI GETFITTES");
+//        for (int i = 0; i < this.population.length; i++) {
+//            System.out.println(i + " :");
+//            System.out.println(getIndividual(i));
+//        }
         return this.population[offset];
     }
 
