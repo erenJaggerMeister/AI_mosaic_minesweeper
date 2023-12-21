@@ -62,7 +62,7 @@ public class tbGeneticAlgo {
 
         // Store fitness
 //        System.out.println(tempNeighbor + " " + tempOverflow + "\n" + "Fitness : " + fitness);
-//        individual.setFitness(fitness);
+        individual.setFitness(fitness);
         return fitness;
     }
 
@@ -187,8 +187,8 @@ public class tbGeneticAlgo {
 
     public boolean isTerminationConditionMet(tbPopulation population) {
         for (tbIndividual x : population.getIndividuals()) {
-            System.out.println(x.getFitness());
-            System.out.println(Arrays.deepToString(x.getChromosomeMatrix()));
+//            System.out.println(x.getFitness());
+//            System.out.println(Arrays.deepToString(x.getChromosomeMatrix()));
             if (x.getFitness() == 1) {
                 return true;
             }
