@@ -58,7 +58,7 @@ public class tbIndividual {
         int sqrt = (int) Math.sqrt(this.chromosome.length);
         StringBuilder output = new StringBuilder();
         for (int gene_1 = 0; gene_1 < sqrt; gene_1++) {
-            for(int gene_2 = 0; gene_2 < sqrt; gene_2++) {
+            for (int gene_2 = 0; gene_2 < sqrt; gene_2++) {
                 output.append(this.chromosome[gene_1]).append(" ");
             }
             output.append("\n");

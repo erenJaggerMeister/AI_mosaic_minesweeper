@@ -19,11 +19,14 @@ public class tbAllOnesGA {
             }
         }
 
-        tbGeneticAlgo ga = new tbGeneticAlgo(10, 0.05, 0.95, 0, matrixMosaic);
+        tbGeneticAlgo ga = new tbGeneticAlgo(100, 0.05, 0.95, 0, matrixMosaic);
         tbPopulation population = ga.initPopulation(matrixSize * matrixSize);
         ga.evalPopulation(population);
         int generation = 1;
-        while (ga.isTerminationConditionMet(population) == true) {
+        System.out.println(ga.isTerminationConditionMet(population));
+        while (ga.isTerminationConditionMet(population) == false) {
+            // System.out.println("Masuk dalam loop");
+            // System.out.println(ga.isTerminationConditionMet(population));
             // Print fittest individual from population
             System.out.println("Best solution: " + population.getFittes(0).toString());
             // Apply crossover

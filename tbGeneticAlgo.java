@@ -32,7 +32,7 @@ public class tbGeneticAlgo {
         int k = 0;
         for (int i = 0; i < this.matrixSoal.length; i++) {
             for (int j = 0; j < this.matrixSoal[0].length; j++) {
-                if(this.matrixSoal[i][j] != -1) {
+                if (this.matrixSoal[i][j] != -1) {
                     int[] temp = countNeighbor(individual, i, j);
                     everyNumberNeighbor[k][0] = this.matrixSoal[i][j];
                     everyNumberNeighbor[k][1] = temp[0];
@@ -50,11 +50,12 @@ public class tbGeneticAlgo {
                 tempNeighbor += everyNumberNeighbor[i][1] * 1.0 / everyNumberNeighbor[i][0];
                 tempOverflow += everyNumberNeighbor[i][2] * 1.0 / everyNumberNeighbor[i][0];
             } else {
-                tempNeighbor += 1;                                      // anggap 0/0 adalah 1, supaya tidak error
-                tempOverflow += everyNumberNeighbor[i][2] * 2.0;        // penalti dengan beban yang lebih berat dari 1, yaitu dikali 2
+                tempNeighbor += 1; // anggap 0/0 adalah 1, supaya tidak error
+                tempOverflow += everyNumberNeighbor[i][2] * 2.0; // penalti dengan beban yang lebih berat dari 1, yaitu
+                                                                 // dikali 2
             }
         }
-        double fitness = (tempNeighbor - tempOverflow) / numberGenes;   // variabel untuk store fitness
+        double fitness = (tempNeighbor - tempOverflow) / numberGenes; // variabel untuk store fitness
 
         // Store fitness
         individual.setFitness(fitness);
@@ -76,99 +77,99 @@ public class tbGeneticAlgo {
     }
 
     private int[] countNeighbor(tbIndividual individual, int i, int j) {
-            int[] arr = new int[2]; // int[2] -> int[0] untuk menyimpan hasil dan int[1] untuk menyimpan overflow
-            int[][] tempMatrix = individual.getChromosomeMatrix();  // mengubah nxn kromosom menjadi matrix Nxn
+        int[] arr = new int[2]; // int[2] -> int[0] untuk menyimpan hasil dan int[1] untuk menyimpan overflow
+        int[][] tempMatrix = individual.getChromosomeMatrix(); // mengubah nxn kromosom menjadi matrix Nxn
 
-            if (this.matrixSoal[i][j] != 0 && this.matrixSoal[i][j] != 9) {
-                // Cek 1 baris di atasnya
-                if (i != 0) {
-                    if (j != 0)
-                        arr[0] += tempMatrix[i - 1][j - 1];
-                    arr[0] += tempMatrix[i - 1][j];
-                    if (j != this.matrixSoal[0].length - 1)
-                        arr[0] += tempMatrix[i - 1][j + 1];
-                }
-
-                // Cek pada baris tersebut
+        if (this.matrixSoal[i][j] != 0 && this.matrixSoal[i][j] != 9) {
+            // Cek 1 baris di atasnya
+            if (i != 0) {
                 if (j != 0)
-                    arr[0] += tempMatrix[i][j - 1];
-                arr[0] += tempMatrix[i][j];
+                    arr[0] += tempMatrix[i - 1][j - 1];
+                arr[0] += tempMatrix[i - 1][j];
                 if (j != this.matrixSoal[0].length - 1)
-                    arr[0] += tempMatrix[i][j + 1];
-
-                // Cek 1 baris dibawahnya
-                if (i != this.matrixSoal.length - 1) {
-                    if (j != 0) {
-                        arr[0] += tempMatrix[i + 1][j - 1];
-                    }
-                    arr[0] += tempMatrix[i + 1][j];
-                    if (j != this.matrixSoal[0].length - 1)
-                        arr[0] += tempMatrix[i + 1][j + 1];
-                }
-
-                if (arr[0] > this.matrixSoal[i][j]) {
-                    arr[1] = arr[0] - this.matrixSoal[i][j];
-                    arr[0] = this.matrixSoal[i][j];
-                }
+                    arr[0] += tempMatrix[i - 1][j + 1];
             }
 
-            else if (this.matrixSoal[i][j] == 0) {
-                // Cek 1 baris di atasnya
-                arr[0] = 0;
-                if (i != 0) {
-                    if (j != 0)
-                        arr[1] += tempMatrix[i - 1][j - 1];
-                    arr[1] += tempMatrix[i - 1][j];
-                    if (j != this.matrixSoal[0].length - 1)
-                        arr[1] += tempMatrix[i - 1][j + 1];
-                }
+            // Cek pada baris tersebut
+            if (j != 0)
+                arr[0] += tempMatrix[i][j - 1];
+            arr[0] += tempMatrix[i][j];
+            if (j != this.matrixSoal[0].length - 1)
+                arr[0] += tempMatrix[i][j + 1];
 
-                // Cek pada baris tersebut
-                if (j != 0)
-                    arr[1] += tempMatrix[i][j - 1];
-                arr[1] += tempMatrix[i][j];
+            // Cek 1 baris dibawahnya
+            if (i != this.matrixSoal.length - 1) {
+                if (j != 0) {
+                    arr[0] += tempMatrix[i + 1][j - 1];
+                }
+                arr[0] += tempMatrix[i + 1][j];
                 if (j != this.matrixSoal[0].length - 1)
-                    arr[1] += tempMatrix[i][j + 1];
-
-                // Cek 1 baris dibawahnya
-                if (i != this.matrixSoal.length - 1) {
-                    if (j != 0) {
-                        arr[1] += tempMatrix[i + 1][j - 1];
-                    }
-                    arr[1] += tempMatrix[i + 1][j];
-                    if (j != this.matrixSoal[0].length - 1)
-                        arr[1] += tempMatrix[i + 1][j + 1];
-                }
+                    arr[0] += tempMatrix[i + 1][j + 1];
             }
 
-            else if (this.matrixSoal[i][j] == 9) {
-                // Cek 1 baris di atasnya
-                arr[1] = 0;
-                if (i != 0) {
-                    if (j != 0)
-                        arr[1] += tempMatrix[i - 1][j - 1];
-                    arr[1] += tempMatrix[i - 1][j];
-                    if (j != this.matrixSoal[0].length - 1)
-                        arr[1] += tempMatrix[i - 1][j + 1];
-                }
-
-                // Cek pada baris tersebut
-                if (j != 0)
-                    arr[1] += tempMatrix[i][j - 1];
-                arr[1] += tempMatrix[i][j];
-                if (j != this.matrixSoal[0].length - 1)
-                    arr[1] += tempMatrix[i][j + 1];
-
-                // Cek 1 baris dibawahnya
-                if (i != this.matrixSoal.length - 1) {
-                    if (j != 0) {
-                        arr[1] += tempMatrix[i + 1][j - 1];
-                    }
-                    arr[1] += tempMatrix[i + 1][j];
-                    if (j != this.matrixSoal[0].length - 1)
-                        arr[1] += tempMatrix[i + 1][j + 1];
-                }
+            if (arr[0] > this.matrixSoal[i][j]) {
+                arr[1] = arr[0] - this.matrixSoal[i][j];
+                arr[0] = this.matrixSoal[i][j];
             }
+        }
+
+        else if (this.matrixSoal[i][j] == 0) {
+            // Cek 1 baris di atasnya
+            arr[0] = 0;
+            if (i != 0) {
+                if (j != 0)
+                    arr[1] += tempMatrix[i - 1][j - 1];
+                arr[1] += tempMatrix[i - 1][j];
+                if (j != this.matrixSoal[0].length - 1)
+                    arr[1] += tempMatrix[i - 1][j + 1];
+            }
+
+            // Cek pada baris tersebut
+            if (j != 0)
+                arr[1] += tempMatrix[i][j - 1];
+            arr[1] += tempMatrix[i][j];
+            if (j != this.matrixSoal[0].length - 1)
+                arr[1] += tempMatrix[i][j + 1];
+
+            // Cek 1 baris dibawahnya
+            if (i != this.matrixSoal.length - 1) {
+                if (j != 0) {
+                    arr[1] += tempMatrix[i + 1][j - 1];
+                }
+                arr[1] += tempMatrix[i + 1][j];
+                if (j != this.matrixSoal[0].length - 1)
+                    arr[1] += tempMatrix[i + 1][j + 1];
+            }
+        }
+
+        else if (this.matrixSoal[i][j] == 9) {
+            // Cek 1 baris di atasnya
+            arr[1] = 0;
+            if (i != 0) {
+                if (j != 0)
+                    arr[1] += tempMatrix[i - 1][j - 1];
+                arr[1] += tempMatrix[i - 1][j];
+                if (j != this.matrixSoal[0].length - 1)
+                    arr[1] += tempMatrix[i - 1][j + 1];
+            }
+
+            // Cek pada baris tersebut
+            if (j != 0)
+                arr[1] += tempMatrix[i][j - 1];
+            arr[1] += tempMatrix[i][j];
+            if (j != this.matrixSoal[0].length - 1)
+                arr[1] += tempMatrix[i][j + 1];
+
+            // Cek 1 baris dibawahnya
+            if (i != this.matrixSoal.length - 1) {
+                if (j != 0) {
+                    arr[1] += tempMatrix[i + 1][j - 1];
+                }
+                arr[1] += tempMatrix[i + 1][j];
+                if (j != this.matrixSoal[0].length - 1)
+                    arr[1] += tempMatrix[i + 1][j + 1];
+            }
+        }
         return arr;
     }
 
@@ -187,17 +188,12 @@ public class tbGeneticAlgo {
         // }
         // }
         // return false;
-        // boolean cekMatrisSoalKosong = true;
-        // for (int i = 0; i < copyMatrixSoal.length; i++) {
-        // for (int j = 0; j < copyMatrixSoal.length; j++) {
-        // if (copyMatrixSoal[i][j] != 0) {
-        // cekMatrisSoalKosong = false;
-        // break;
-        // }
-        // }
-        // }
-        // copyMatrixSoal = matrixSoal;
-        // return cekMatrisSoalKosong;
+        for (tbIndividual x : population.getIndividuals()) {
+            System.out.println(x.getFitness());
+            if (x.getFitness() == 1) {
+                return true;
+            }
+        }
         return false;
     }
 
