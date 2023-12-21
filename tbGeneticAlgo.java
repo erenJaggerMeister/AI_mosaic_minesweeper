@@ -4,7 +4,6 @@ public class tbGeneticAlgo {
     private double crossoverRate;
     private int elitismCount;
     private int[][] matrixSoal;
-    private int[][] copyMatrixSoal;
 
     public tbGeneticAlgo(int popSize, double mutRate, double crossRate, int elitCount, int[][] matricesQ) {
         this.populationSize = popSize;
@@ -12,7 +11,6 @@ public class tbGeneticAlgo {
         this.crossoverRate = crossRate;
         this.elitismCount = elitCount;
         this.matrixSoal = matricesQ;
-        this.copyMatrixSoal = matrixSoal;
     }
 
     public tbPopulation initPopulation(int chromosomeLength) {
@@ -34,18 +32,19 @@ public class tbGeneticAlgo {
         int k = 0;
         for (int i = 0; i < this.matrixSoal.length; i++) {
             for (int j = 0; j < this.matrixSoal[0].length; j++) {
-                int[] temp = countNeighbor(individual, i, j);
-                everyNumberNeighbor[k][0] = this.matrixSoal[i][j];
-                everyNumberNeighbor[k][1] = temp[0];
-                everyNumberNeighbor[k][2] = temp[1];
+                if(this.matrixSoal[i][j] != -1) {
+                    int[] temp = countNeighbor(individual, i, j);
+                    everyNumberNeighbor[k][0] = this.matrixSoal[i][j];
+                    everyNumberNeighbor[k][1] = temp[0];
+                    everyNumberNeighbor[k][2] = temp[1];
 
-                // Apabila neighbor value dan angka yang dicek sama, disertai jumlah overflow
-                // yang 0
-                // maka perhitungan jumlah neighbor adalah benar (gen yang benar tambah 1)
-                if (everyNumberNeighbor[k][0] == everyNumberNeighbor[k][1] &&
-                        everyNumberNeighbor[k][2] == 0)
-                    correctGenes++;
-                k++;
+                    // Apabila neighbor value dan angka yang dicek sama, disertai jumlah overflow
+                    // yang 0
+                    // maka perhitungan jumlah neighbor adalah benar (gen yang benar tambah 1)
+                    if (everyNumberNeighbor[k][0] == everyNumberNeighbor[k][1] &&
+                            everyNumberNeighbor[k][2] == 0) correctGenes++;
+                    k++;
+                }
             }
         }
 
@@ -84,11 +83,9 @@ public class tbGeneticAlgo {
     }
 
     private int[] countNeighbor(tbIndividual individual, int i, int j) {
-        int[] arr = new int[2]; // int[2] -> int[0] untuk menyimpan hasil dan int[1] untuk menyimpan overflow
+            int[] arr = new int[2]; // int[2] -> int[0] untuk menyimpan hasil dan int[1] untuk menyimpan overflow
+            int[][] tempMatrix = individual.getChromosomeMatrix();  // mengubah nxn kromosom menjadi matrix Nxn
 
-        int[][] tempMatrix = individual.getChromosomeMatrix();
-
-        if (this.matrixSoal[i][j] != -1) {
             if (this.matrixSoal[i][j] != 0 && this.matrixSoal[i][j] != 9) {
                 // Cek 1 baris di atasnya
                 if (i != 0) {
@@ -179,7 +176,6 @@ public class tbGeneticAlgo {
                         arr[1] += tempMatrix[i + 1][j + 1];
                 }
             }
-        }
         return arr;
     }
 

@@ -38,5 +38,4 @@ public class tbAllOnesGA {
         System.out.println("Found solution in " + generation + " generations");
         System.out.println("Best solution: " + population.getFittes(0).toString());
     }
-
 }
