@@ -1,38 +1,29 @@
 import java.util.Arrays;
 
 public class tbGeneticAlgo {
-    private int populationSize;
-    private double mutationRate;
+    private final int populationSize;
+    private final double mutationRate;
     private final double crossoverRate;
-    private int elitismCount;
-    private int[][] matrixSoal;
-
-    // TODO!!!
-    // menambah seed untuk random
-    private tbRandomGenerator rand;
+    private final int elitismCount;
+    private final int[][] matrixSoal;
+    private tbRandomGenerator rand; // menambah seed untuk random
     private long seed;
 
-    public tbGeneticAlgo(int popSize, double mutRate, double crossRate, int elitCount, int[][] matricesQ,
-            long iptSeed) {
+    public tbGeneticAlgo(int popSize, double mutRate, double crossRate, int elitCount, int[][] matricesQ, long iptSeed) {
         this.populationSize = popSize;
         this.mutationRate = mutRate;
         this.crossoverRate = crossRate;
         this.elitismCount = elitCount;
         this.matrixSoal = matricesQ;
-
-        // TODO!!!
-        // pembuatan kelas random
         this.rand = new tbRandomGenerator(iptSeed);
         this.seed = iptSeed;
     }
 
     public tbPopulation initPopulation(int chromosomeLength) {
-        tbPopulation population = new tbPopulation(this.populationSize, chromosomeLength, this.seed);
-        return population;
+        return new tbPopulation(this.populationSize, chromosomeLength, this.seed);
     }
 
     public double calcFitness(tbIndividual individual) {
-        int correctGenes = 0;
         int numberGenes = countNumber();
 
         // everyNumberNeighbor[][0] -> menyimpan angka pada matrix
@@ -65,15 +56,14 @@ public class tbGeneticAlgo {
             } else {
                 tempNeighbor += 1; // anggap 0/0 adalah 1, supaya tidak error
                 tempOverflow += everyNumberNeighbor[i][2] * 2.0;
-                // penalti dengan beban yang lebih berat dari 1, yaitu
+                // Menggunakan penalti dengan beban yang lebih berat dari 1, yaitu
                 // dikali 2
             }
         }
         double fitness = (tempNeighbor - tempOverflow) / numberGenes; // variabel untuk store fitness
 
         // Store fitness
-        // System.out.println(tempNeighbor + " " + tempOverflow + "\n" + "Fitness : " +
-        // fitness);
+//        System.out.println(tempNeighbor + " " + tempOverflow + "\n" + "Fitness : " + fitness);
         individual.setFitness(fitness);
         return fitness;
     }
@@ -82,9 +72,7 @@ public class tbGeneticAlgo {
         int counter = 0;
         for (int[] ints : this.matrixSoal) {
             for (int j = 0; j < this.matrixSoal[0].length; j++) {
-                if (ints[j] == -1)
-                    continue;
-                else {
+                if (ints[j] != -1) {
                     counter++;
                 }
             }
@@ -97,29 +85,36 @@ public class tbGeneticAlgo {
         int[] arr = new int[2];
         int[][] tempMatrix = individual.getChromosomeMatrix(); // mengubah nxn kromosom menjadi matrix Nxn
 
+        // Jika merupakan angka 1-8, maka gunakan Logic ini
         if (this.matrixSoal[i][j] != 0 && this.matrixSoal[i][j] != 9) {
             // Cek 1 baris di atasnya
+            // Out of bounds handler (atas)
             if (i != 0) {
-                if (j != 0)
-                    arr[0] += tempMatrix[i - 1][j - 1];
+                // Out of bounds handler (kiri)
+                if (j != 0) arr[0] += tempMatrix[i - 1][j - 1];
                 arr[0] += tempMatrix[i - 1][j];
-                if (j != this.matrixSoal[0].length - 1)
-                    arr[0] += tempMatrix[i - 1][j + 1];
+                // Out of bounds handler (kanan)
+                if (j != this.matrixSoal[0].length - 1) arr[0] += tempMatrix[i - 1][j + 1];
             }
 
             // Cek pada baris tersebut
+            // Out of bounds handler (kiri)
             if (j != 0)
                 arr[0] += tempMatrix[i][j - 1];
             arr[0] += tempMatrix[i][j];
+            // Out of bounds handler (kanan)
             if (j != this.matrixSoal[0].length - 1)
                 arr[0] += tempMatrix[i][j + 1];
 
             // Cek 1 baris dibawahnya
+            // Out of bounds handler (bawah)
             if (i != this.matrixSoal.length - 1) {
+                // Out of bounds handler (kiri)
                 if (j != 0) {
                     arr[0] += tempMatrix[i + 1][j - 1];
                 }
                 arr[0] += tempMatrix[i + 1][j];
+                // Out of bounds handler (kanan)
                 if (j != this.matrixSoal[0].length - 1)
                     arr[0] += tempMatrix[i + 1][j + 1];
             }
@@ -130,59 +125,81 @@ public class tbGeneticAlgo {
             }
         }
 
+        // Jika ditemukan angka 0 di soal, maka set NEIGHBOR = 0
+        // karena angka 0 seharusnya tidak memiliki tetangga
+        // Jika ditemukan tetangga maka, langsung tambah di arr[1] -> overflow
         else if (this.matrixSoal[i][j] == 0) {
+            arr[0] = 0;     // Set NEIGHBOR = 0
             // Cek 1 baris di atasnya
-            arr[0] = 0;
+            // Out of bounds handler (atas)
             if (i != 0) {
+                // Out of bounds handler (kiri)
                 if (j != 0)
                     arr[1] += tempMatrix[i - 1][j - 1];
                 arr[1] += tempMatrix[i - 1][j];
+                // Out of bounds handler (kanan)
                 if (j != this.matrixSoal[0].length - 1)
                     arr[1] += tempMatrix[i - 1][j + 1];
             }
 
             // Cek pada baris tersebut
+            // Out of bounds handler (kiri)
             if (j != 0)
                 arr[1] += tempMatrix[i][j - 1];
             arr[1] += tempMatrix[i][j];
+            // Out of bounds handler (kanan)
             if (j != this.matrixSoal[0].length - 1)
                 arr[1] += tempMatrix[i][j + 1];
 
             // Cek 1 baris dibawahnya
+            // Out of bounds handler (bawah)
             if (i != this.matrixSoal.length - 1) {
+                // Out of bounds handler (kiri)
                 if (j != 0) {
                     arr[1] += tempMatrix[i + 1][j - 1];
                 }
                 arr[1] += tempMatrix[i + 1][j];
+                // Out of bounds handler (kanan)
                 if (j != this.matrixSoal[0].length - 1)
                     arr[1] += tempMatrix[i + 1][j + 1];
             }
         }
 
+        // Jika ditemukan angka 9 di soal, maka set OVERFLOW = 0
+        // karena angka 9 selalu kurang/tidak pernah lebih
         else if (this.matrixSoal[i][j] == 9) {
+            arr[1] = 0;     // Set OVERFLOW = 0, karena selalu kekurangan neighbor
+
             // Cek 1 baris di atasnya
-            arr[1] = 0;
+            // Out of bounds handler (atas)
             if (i != 0) {
+                // Out of bounds handler (kiri)
                 if (j != 0)
                     arr[0] += tempMatrix[i - 1][j - 1];
                 arr[0] += tempMatrix[i - 1][j];
+                // Out of bounds handler (kanan)
                 if (j != this.matrixSoal[0].length - 1)
                     arr[0] += tempMatrix[i - 1][j + 1];
             }
 
             // Cek pada baris tersebut
+            // Out of bounds handler (kiri)
             if (j != 0)
                 arr[0] += tempMatrix[i][j - 1];
             arr[0] += tempMatrix[i][j];
+            // Out of bounds handler (kanan)
             if (j != this.matrixSoal[0].length - 1)
                 arr[0] += tempMatrix[i][j + 1];
 
             // Cek 1 baris dibawahnya
+            // Out of bounds handler (bawah)
             if (i != this.matrixSoal.length - 1) {
+                // Out of bounds handler (kiri)
                 if (j != 0) {
                     arr[0] += tempMatrix[i + 1][j - 1];
                 }
                 arr[0] += tempMatrix[i + 1][j];
+                // Out of bounds handler (kanan)
                 if (j != this.matrixSoal[0].length - 1)
                     arr[0] += tempMatrix[i + 1][j + 1];
             }
@@ -201,8 +218,8 @@ public class tbGeneticAlgo {
 
     public boolean isTerminationConditionMet(tbPopulation population) {
         for (tbIndividual x : population.getIndividuals()) {
-            // System.out.println(x.getFitness());
-            // System.out.println(Arrays.deepToString(x.getChromosomeMatrix()));
+//            System.out.println(x.getFitness());
+//            System.out.println(Arrays.deepToString(x.getChromosomeMatrix()));
             if (x.getFitness() == 1) {
                 return true;
             }
@@ -212,7 +229,7 @@ public class tbGeneticAlgo {
 
     public tbIndividual selectParent(tbPopulation population) {
         // Get individuals
-        tbIndividual individuals[] = population.getIndividuals();
+        tbIndividual[] individuals = population.getIndividuals();
         // Spin roulette wheel
         double populationFitness = population.getPopulationFitness();
         // double rouletteWheelPosition = Math.random() * populationFitness;
