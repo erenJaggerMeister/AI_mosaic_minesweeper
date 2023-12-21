@@ -1,10 +1,20 @@
+
 public class tbGeneticAlgo {
+   
     private int populationSize;
     private double mutationRate;
     private double crossoverRate;
     private int elitismCount;
     private int[][] matrixSoal;
 
+    /**
+     * create object that represents genetic algorithm process
+     * @param popSize //population size
+     * @param mutRate //mutation rate
+     * @param crossRate //cross rate
+     * @param elitCount 
+     * @param matricesQ //the matrix
+     */
     public tbGeneticAlgo(int popSize, double mutRate, double crossRate, int elitCount, int[][] matricesQ) {
         this.populationSize = popSize;
         this.mutationRate = mutRate;
@@ -12,15 +22,23 @@ public class tbGeneticAlgo {
         this.elitismCount = elitCount;
         this.matrixSoal = matricesQ;
     }
-
+    /**
+     * initialize population with specific length
+     * @param chromosomeLength
+     * @return tbPopulation
+     */
     public tbPopulation initPopulation(int chromosomeLength) {
         tbPopulation population = new tbPopulation(this.populationSize, chromosomeLength);
         return population;
     }
-
+    /**
+     * Function to calc an fitness on an individu
+     * @param individual 
+     * @return fitness of an individu
+     */
     public double calcFitness(tbIndividual individual) {
-        int correctGenes = 0;
-        int numberGenes = countNumber();
+        int correctGenes = 0; //count of correct genes
+        int numberGenes = countNumber(); //count of numbered genes
 
         // everyNumberNeighbor[][0] -> menyimpan angka pada matrix
         // everyNumberNeighbor[][1] -> menyimpan jumlah neighbor
@@ -62,8 +80,14 @@ public class tbGeneticAlgo {
         return fitness;
     }
 
+    /**
+     * Funtion to count number in matrixSoal
+     * (any number except -1)
+     * @return the count
+     */
     private int countNumber() {
         int counter = 0;
+        //for every index in the matrix
         for (int[] ints : this.matrixSoal) {
             for (int j = 0; j < this.matrixSoal[0].length; j++) {
                 if (ints[j] == -1)
@@ -76,6 +100,13 @@ public class tbGeneticAlgo {
         return counter;
     }
 
+    /**
+     * Function to count number of neighbor of an individual
+     * @param individual
+     * @param i
+     * @param j
+     * @return
+     */
     private int[] countNeighbor(tbIndividual individual, int i, int j) {
         int[] arr = new int[2]; // int[2] -> int[0] untuk menyimpan hasil dan int[1] untuk menyimpan overflow
         int[][] tempMatrix = individual.getChromosomeMatrix(); // mengubah nxn kromosom menjadi matrix Nxn
@@ -173,11 +204,17 @@ public class tbGeneticAlgo {
         return arr;
     }
 
+    /**
+     * Function to evaluate the fitness of an population
+     * @param population
+     */
     public void evalPopulation(tbPopulation population) {
         double populationFitness = 0;
+        //for every individual of a population,calculate the fitness
         for (tbIndividual individual : population.getIndividuals()) {
             populationFitness += calcFitness(individual);
         }
+        //set the population fitness by calling the func setPopultionFitness
         population.setPopulationFitness(populationFitness);
     }
 
@@ -197,6 +234,11 @@ public class tbGeneticAlgo {
         return false;
     }
 
+    /**
+     * Function to select parent from an pouplation to be crossed
+     * @param population
+     * @return individual that selected to be a parent
+     */
     public tbIndividual selectParent(tbPopulation population) {
         // Get individuals
         tbIndividual individuals[] = population.getIndividuals();
@@ -214,6 +256,11 @@ public class tbGeneticAlgo {
         return individuals[population.size() - 1];
     }
 
+    /**
+     * Function to cross individuals from a population
+     * @param population
+     * @return new population
+     */
     public tbPopulation crossoverPopulation(tbPopulation population) {
         // Create new population
         tbPopulation newPopulation = new tbPopulation(population.size());
@@ -249,6 +296,11 @@ public class tbGeneticAlgo {
         return newPopulation;
     }
 
+    /**
+     * Function to do mutation from a population
+     * @param population
+     * @return new population has been mutated
+     */
     public tbPopulation mutatePopulation(tbPopulation population) {
         // Initialize new population
         tbPopulation newPopulation = new tbPopulation(this.populationSize);

@@ -1,13 +1,21 @@
 import java.util.*;
 
 public class tbPopulation {
+    
     private tbIndividual population[];
     private double populationFitness = -1;
-
+    /**
+     * Create new object tbPopulation. tbPopulation is an array of individus
+     * @param populationSize
+     */
     public tbPopulation(int populationSize) {
         this.population = new tbIndividual[populationSize];
     }
-
+    /**
+     *  Create new object tbPopulation. tbPopulation is an array of individus
+     * @param populationSize
+     * @param chromosomeLength
+     */
     public tbPopulation(int populationSize, int chromosomeLength) {
         this.population = new tbIndividual[populationSize];
         for (int individualCount = 0; individualCount < populationSize; individualCount++) {
@@ -15,11 +23,19 @@ public class tbPopulation {
             this.population[individualCount] = individual;
         }
     }
-
+    /**
+     * Getter of tbPopulation
+     * @return
+     */
     public tbIndividual[] getIndividuals() {
         return this.population;
     }
 
+    /**
+     * function to find the fittest individual in a population
+     * @param offset
+     * @return the fittest individual
+     */
     public tbIndividual getFittes(int offset) {
         Arrays.sort(this.population, new Comparator<tbIndividual>() {
             @Override
@@ -55,6 +71,10 @@ public class tbPopulation {
         return population[offset];
     }
 
+
+    /**
+     * Function to shuffle the individuals in a population
+     */
     public void shuffle() {
         Random rnd = new Random();
         for (int i = population.length - 1; i > 0; i--) {

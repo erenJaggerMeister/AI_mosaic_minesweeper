@@ -4,12 +4,14 @@ import java.util.Scanner;
 public class tbAllOnesGA {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        //input matrix size
         int matrixSize = sc.nextInt();
-        int[][] matrixMosaic = new int[matrixSize][matrixSize];
         // inisialisasi
+        int[][] matrixMosaic = new int[matrixSize][matrixSize];
         for (int i = 0; i < matrixSize; i++) {
             for (int j = 0; j < matrixSize; j++) {
                 matrixMosaic[i][j] = sc.nextInt();
+                // contoh: 
                 // input 0-9, -1 kalo kosong
                 // 10102
                 // 00000
@@ -19,7 +21,7 @@ public class tbAllOnesGA {
             }
         }
 
-        tbGeneticAlgo ga = new tbGeneticAlgo(100, 0.05, 0.95, 0, matrixMosaic);
+        tbGeneticAlgo ga = new tbGeneticAlgo(10, 0.05, 0.95, 0, matrixMosaic);
         tbPopulation population = ga.initPopulation(matrixSize * matrixSize);
         ga.evalPopulation(population);
         int generation = 1;
@@ -39,6 +41,6 @@ public class tbAllOnesGA {
             generation++;
         }
         System.out.println("Found solution in " + generation + " generations");
-        System.out.println("Best solution: " + "\n" + population.getFittes(0).toString());
+        System.out.println("Best solution: " + population.getFittes(0).toString());
     }
 }
