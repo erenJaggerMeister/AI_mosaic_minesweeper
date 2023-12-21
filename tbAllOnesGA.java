@@ -18,21 +18,21 @@ public class tbAllOnesGA {
                 matrixMosaic[i][j] = sc.nextInt();
                 // input 0-9, -1 kalo kosong
                 // Contoh input
-                //  1 -1  1 -1  2
+                // 1 -1 1 -1 2
                 // -1 -1 -1 -1 -1
-                // -1  4 -1 -1  5
-                // -1  6  8  7 -1
-                // -1  4  6 -1  2
+                // -1 4 -1 -1 5
+                // -1 6 8 7 -1
+                // -1 4 6 -1 2
             }
         }
 
-        tbGeneticAlgo ga = new tbGeneticAlgo(100, 0.05, 0.95, 0, matrixMosaic);
+        tbGeneticAlgo ga = new tbGeneticAlgo(100, 0.05, 0.95, 0, matrixMosaic, seed);
         tbPopulation population = ga.initPopulation(matrixSize * matrixSize);
         ga.evalPopulation(population);
         int generation = 1;
-//        System.out.println(ga.isTerminationConditionMet(population));
+        // System.out.println(ga.isTerminationConditionMet(population));
         while (ga.isTerminationConditionMet(population) == false) {
-//             System.out.println("Masuk dalam loop");
+            // System.out.println("Masuk dalam loop");
             // System.out.println(ga.isTerminationConditionMet(population));
             // Apply crossover
             population = ga.crossoverPopulation(population);

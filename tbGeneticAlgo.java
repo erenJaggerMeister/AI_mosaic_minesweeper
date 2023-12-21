@@ -7,16 +7,27 @@ public class tbGeneticAlgo {
     private int elitismCount;
     private int[][] matrixSoal;
 
-    public tbGeneticAlgo(int popSize, double mutRate, double crossRate, int elitCount, int[][] matricesQ) {
+    // TODO!!!
+    // menambah seed untuk random
+    private tbRandomGenerator rand;
+    private long seed;
+
+    public tbGeneticAlgo(int popSize, double mutRate, double crossRate, int elitCount, int[][] matricesQ,
+            long iptSeed) {
         this.populationSize = popSize;
         this.mutationRate = mutRate;
         this.crossoverRate = crossRate;
         this.elitismCount = elitCount;
         this.matrixSoal = matricesQ;
+
+        // TODO!!!
+        // pembuatan kelas random
+        this.rand = new tbRandomGenerator(iptSeed);
+        this.seed = iptSeed;
     }
 
     public tbPopulation initPopulation(int chromosomeLength) {
-        tbPopulation population = new tbPopulation(this.populationSize, chromosomeLength);
+        tbPopulation population = new tbPopulation(this.populationSize, chromosomeLength, this.seed);
         return population;
     }
 
@@ -61,7 +72,8 @@ public class tbGeneticAlgo {
         double fitness = (tempNeighbor - tempOverflow) / numberGenes; // variabel untuk store fitness
 
         // Store fitness
-//        System.out.println(tempNeighbor + " " + tempOverflow + "\n" + "Fitness : " + fitness);
+        // System.out.println(tempNeighbor + " " + tempOverflow + "\n" + "Fitness : " +
+        // fitness);
         individual.setFitness(fitness);
         return fitness;
     }
@@ -88,9 +100,11 @@ public class tbGeneticAlgo {
         if (this.matrixSoal[i][j] != 0 && this.matrixSoal[i][j] != 9) {
             // Cek 1 baris di atasnya
             if (i != 0) {
-                if (j != 0) arr[0] += tempMatrix[i - 1][j - 1];
+                if (j != 0)
+                    arr[0] += tempMatrix[i - 1][j - 1];
                 arr[0] += tempMatrix[i - 1][j];
-                if (j != this.matrixSoal[0].length - 1) arr[0] += tempMatrix[i - 1][j + 1];
+                if (j != this.matrixSoal[0].length - 1)
+                    arr[0] += tempMatrix[i - 1][j + 1];
             }
 
             // Cek pada baris tersebut
@@ -173,7 +187,7 @@ public class tbGeneticAlgo {
                     arr[0] += tempMatrix[i + 1][j + 1];
             }
         }
-//        System.out.println(Arrays.toString(arr));
+        // System.out.println(Arrays.toString(arr));
         return arr;
     }
 
@@ -187,8 +201,8 @@ public class tbGeneticAlgo {
 
     public boolean isTerminationConditionMet(tbPopulation population) {
         for (tbIndividual x : population.getIndividuals()) {
-//            System.out.println(x.getFitness());
-//            System.out.println(Arrays.deepToString(x.getChromosomeMatrix()));
+            // System.out.println(x.getFitness());
+            // System.out.println(Arrays.deepToString(x.getChromosomeMatrix()));
             if (x.getFitness() == 1) {
                 return true;
             }
@@ -201,7 +215,12 @@ public class tbGeneticAlgo {
         tbIndividual individuals[] = population.getIndividuals();
         // Spin roulette wheel
         double populationFitness = population.getPopulationFitness();
-        double rouletteWheelPosition = Math.random() * populationFitness;
+        // double rouletteWheelPosition = Math.random() * populationFitness;
+        // TODO!!!
+        // atas adalah kode asli dari sebelum pembuatan kelas random generator karena
+        // menggunakan math.random()
+        // bawah adalah penggunaan kelas random generator
+        double rouletteWheelPosition = rand.getRandom() * populationFitness;
         // Find parent
         double spinWheel = 0;
         for (tbIndividual individual : individuals) {
@@ -222,7 +241,7 @@ public class tbGeneticAlgo {
             // Apply crossover to this individual?
             if (this.crossoverRate > Math.random() && populationIndex > this.elitismCount) {
                 // Initialize offspring
-                tbIndividual offspring = new tbIndividual(parent1.getChromosomeLength());
+                tbIndividual offspring = new tbIndividual(parent1.getChromosomeLength(), this.seed);
                 // Find second parent
                 tbIndividual parent2 = selectParent(population);
                 // Loop over genome
