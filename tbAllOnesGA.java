@@ -1,3 +1,10 @@
+
+/*
+ * Vincent mark - 6182101013 ; 
+ * William Arthur - 6182101012 ;
+ * Marcellius - 6182101003
+ * kelompok 12
+ */
 import java.util.Random;
 import java.util.Scanner;
 import java.util.*;
@@ -6,11 +13,11 @@ import java.io.*;
 
 /**
  * Ini adalah Class Main yang akan di Run
- *
- * Input :
+ * 
+ * In :
  * Berupa file yang terdiri dari :
- * 1.   input seed -> seed
- * 2.   input matrix size -> size
+ * 1. input seed -> seed
+ * 2. input matrix size -> size
  * 3-n. input anggota matrix
  */
 public class tbAllOnesGA {
@@ -45,7 +52,7 @@ public class tbAllOnesGA {
 
             // System.out.println("Enter Matrix size :");
             // int matrixSize = sc.nextInt();
-            int matrixSize = scanner.nextInt();     // input ukuran matrix
+            int matrixSize = scanner.nextInt(); // input ukuran matrix
 
             // System.out.println("Enter Matrix :");
             int[][] matrixMosaic = new int[matrixSize][matrixSize]; // input ukuran matrix
@@ -104,7 +111,7 @@ public class tbAllOnesGA {
             }
             System.out.print("Program telah selesai, cek outputHasil.txt");
         } catch (FileNotFoundException e) {
-            e.printStackTrace();        // output error
+            e.printStackTrace(); // output error
         }
 
     }

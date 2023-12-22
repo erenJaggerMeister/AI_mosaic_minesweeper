@@ -1,3 +1,10 @@
+
+/*
+ * Vincent mark - 6182101013 ; 
+ * William Arthur - 6182101012 ;
+ * Marcellius - 6182101003
+ * kelompok 12
+ */
 import java.util.Arrays;
 
 /**

@@ -1,9 +1,18 @@
+
+/*
+ * Vincent mark - 6182101013 ; 
+ * William Arthur - 6182101012 ;
+ * Marcellius - 6182101003
+ * kelompok 12
+ */
 import java.util.*;
 
 /**
  * Class ini digunakan untuk menyimpan banyak kromosom
  *
- * Sumber diambil dari buku Genetic Algorithms in Java Basics dan PPT Algoritma genetik
+ * Sumber diambil dari buku Genetic Algorithms in Java Basics dan PPT Algoritma
+ * genetik
+ * 
  * @author Lee Jacobson & Burak Kanber
  */
 public class tbPopulation {
