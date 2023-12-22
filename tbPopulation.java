@@ -1,11 +1,8 @@
 import java.util.*;
 
-/**
- * @author Lee Jacobson & Burak Kanber
- */
 public class tbPopulation {
-    private tbIndividual population[]; // pupulasi
-    private double populationFitness = -1; // fitness dari populasi ini
+    private tbIndividual population[];// pupulasi
+    private double populationFitness = -1;// fitness dari populasi ini
     private long seed;
 
     /**
@@ -48,11 +45,7 @@ public class tbPopulation {
      * @return
      */
     public tbIndividual getFittes(int offset) {
-        Arrays.sort(this.population, new Comparator<tbIndividual>() {
-            @Override
-            public int compare(tbIndividual o1, tbIndividual o2) {
-                if (o1.getFitness() > o2.getFitness()) {
-        //override fungsi compare, agar mudah dilakukan sort
+        // override fungsi compare, agar mudah dilakukan sort
         Arrays.sort(this.population, new Comparator<tbIndividual>() {
             @Override
             public int compare(tbIndividual o1, tbIndividual o2) {
