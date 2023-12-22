@@ -1,5 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
+import java.util.*;
+import javax.print.attribute.standard.PrinterName;
 import java.io.*;
 
 public class tbAllOnesGA {
@@ -12,15 +14,15 @@ public class tbAllOnesGA {
         try {
             File file = new File(inputNamaFile);
             Scanner scanner = new Scanner(file);
-            System.out.println("Enter Seed for Random :");
+            // System.out.println("Enter Seed for Random :");
             // long seed = sc.nextLong();
             long seed = scanner.nextLong();
 
-            System.out.println("Enter Matrix size :");
+            // System.out.println("Enter Matrix size :");
             // int matrixSize = sc.nextInt();
             int matrixSize = scanner.nextInt();
 
-            System.out.println("Enter Matrix :");
+            // System.out.println("Enter Matrix :");
             int[][] matrixMosaic = new int[matrixSize][matrixSize];
             // inisialisasi
             for (int i = 0; i < matrixSize; i++) {
@@ -56,11 +58,15 @@ public class tbAllOnesGA {
             }
 
             // Print fittest individual from population
-            System.out.println("Found solution in " + generation + " generations");
-            System.out.println("Best solution: " + "\n" + population.getFittes(0).toString());
+            String outputFileName = "outputHasil.txt";
+            try (PrintWriter writer = new PrintWriter(outputFileName)) {
+                writer.println("Found solution in " + generation + " generations");
+                writer.println("Best solution: " + "\n" + population.getFittes(0).toString());
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
     }
+
 }
