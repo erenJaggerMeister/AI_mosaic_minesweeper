@@ -54,7 +54,13 @@ public class tbAllOnesGA {
                 // Evaluasi populasi
                 ga.evalPopulation(population);
                 // Increment generasinya
+
+                // System.out.println("generation = " + generation + "\n" +
+                // population.getFittes(0).toString());
                 generation++;
+                if (generation == 2147483647) {
+                    break;
+                }
             }
 
             // Print fittest individual from population

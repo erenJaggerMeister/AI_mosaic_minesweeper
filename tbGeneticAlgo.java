@@ -239,12 +239,14 @@ public class tbGeneticAlgo {
         for (int populationIndex = 0; populationIndex < population.size(); populationIndex++) {
             tbIndividual parent1 = population.getFittes(populationIndex);
             // Apply crossover to this individual?
-            if (this.crossoverRate > Math.random() && populationIndex > this.elitismCount) {
+            if (this.crossoverRate > rand.getRandom() && populationIndex > this.elitismCount) {
                 // Initialize offspring
                 tbIndividual offspring = new tbIndividual(parent1.getChromosomeLength(), this.seed);
                 // Find second parent
                 tbIndividual parent2 = selectParent(population);
                 // Loop over genome
+                // TODO!!!
+                // silahkan matikan komentar jika ingin menjalankan
                 for (int geneIndex = 0; geneIndex < parent1.getChromosomeLength(); geneIndex++) {
                     // Use half of parent1's genes and half of parent2's genes
                     if (0.5 > Math.random()) {
@@ -257,6 +259,26 @@ public class tbGeneticAlgo {
                         offspring.setGene(geneIndex, parent2.getGene(geneIndex));
                     }
                 }
+
+                // TODO!!!
+                // pembagian chromosome split 2
+                // misal 111000111 -> 111|000|111 chromosome 1
+                // misal 000111000 -> 000|111|000 chromosome 2
+                // maka menjadi 111|111|1111
+                // for (int geneIndex = offspring.getChromosomeLength() / 3; geneIndex <
+                // (offspring.getChromosomeLength()
+                // - (offspring.getChromosomeLength() / 3)); geneIndex++) {
+                // if (0.5 > Math.random()) {
+                // // offspring.setGene(geneIndex,
+                // // parent1.getGene(geneIndex));
+                // offspring.setGene(geneIndex, parent1.getGene(geneIndex));
+                // } else {
+                // // offspring.setGene(geneIndex,
+                // // parent2.getGene(geneIndex));
+                // offspring.setGene(geneIndex, parent2.getGene(geneIndex));
+                // }
+                // }
+                //
                 // Add offspring to new population
                 newPopulation.setIndividual(populationIndex, offspring);
             } else {
