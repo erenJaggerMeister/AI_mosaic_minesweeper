@@ -3,9 +3,6 @@ import java.util.Scanner;
 import java.util.*;
 import javax.print.attribute.standard.PrinterName;
 import java.io.*;
-import java.util.*;
-import javax.print.attribute.standard.PrinterName;
-import java.io.*;
 
 public class tbAllOnesGA {
     public static void main(String[] args) {
@@ -26,29 +23,28 @@ public class tbAllOnesGA {
          * -1 6 8 7 -1
          * -1 4 6 -1 2
          */
-
-        // input namaFile.txt
         System.out.print("Silahkan masukkan file input anda : ");
         inputNamaFile = sc.next();
+        //
         try {
             // input dari file.txt
             File file = new File(inputNamaFile);
             Scanner scanner = new Scanner(file);
             // System.out.println("Enter Seed for Random :");
             // long seed = sc.nextLong();
-
-            // seed
             long seed = scanner.nextLong();
 
             // System.out.println("Enter Matrix size :");
             // int matrixSize = sc.nextInt();
+            int matrixSize = scanner.nextInt();
 
-            System.out.println("Enter Matrix :");
+            // System.out.println("Enter Matrix :");
             int[][] matrixMosaic = new int[matrixSize][matrixSize];
             // inisialisasi
             for (int i = 0; i < matrixSize; i++) {
                 for (int j = 0; j < matrixSize; j++) {
-                    matrixMosaic[i][j] = sc.nextInt();
+                    // matrixMosaic[i][j] = sc.nextInt();
+                    matrixMosaic[i][j] = scanner.nextInt();
                     // input 0-9, -1 kalo kosong
                     // Contoh input
                     // 1 -1 1 -1 2
@@ -59,11 +55,18 @@ public class tbAllOnesGA {
                 }
             }
 
-            tbGeneticAlgo ga = new tbGeneticAlgo(100, 0.05, 0.95, 0, matrixMosaic);
+            // inisialisasi genetic algorithm, (ditentukan sendiri) population size = 100,
+            // mutation rate = 0.05, cross rate = 0.95, elit count = 0
+            tbGeneticAlgo ga = new tbGeneticAlgo(100, 0.05, 0.95, 0, matrixMosaic, seed);
+            // inisialisasi population dengan ukuran matrix size * size
             tbPopulation population = ga.initPopulation(matrixSize * matrixSize);
+
+            // evaluasi population
             ga.evalPopulation(population);
+            // varuable generation counter
             int generation = 1;
             // System.out.println(ga.isTerminationConditionMet(population));
+            // selama terminate condition belum dipenuhi
             while (ga.isTerminationConditionMet(population) == false) {
                 // System.out.println("Masuk dalam loop");
                 // System.out.println(ga.isTerminationConditionMet(population));
@@ -74,7 +77,13 @@ public class tbAllOnesGA {
                 // Evaluasi populasi
                 ga.evalPopulation(population);
                 // Increment generasinya
+
+                // System.out.println("generation = " + generation + "\n" +
+                // population.getFittes(0).toString());
                 generation++;
+                if (generation == 2147483647) {
+                    break;
+                }
             }
 
             // Output fittest individual from population, nama filenya adalah

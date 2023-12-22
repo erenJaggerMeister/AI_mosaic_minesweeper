@@ -1,10 +1,8 @@
-Found solution in 1733 generations
+Found solution in 78 generations
 Best solution: 
-1 1 1 1 1 1 1 
-0 1 0 1 1 1 0 
-0 1 0 0 0 0 0 
-1 1 0 0 0 1 1 
-0 0 0 1 0 1 1 
-1 1 0 1 1 0 1 
-1 1 0 1 1 1 1 
+1 1 0 0 1 
+1 0 0 0 1 
+1 0 0 0 1 
+0 0 0 0 1 
+0 1 1 1 0 
 
