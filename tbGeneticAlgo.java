@@ -1,6 +1,6 @@
 
 /*
- * Vincent mark - 6182101013 ; 
+ * Vincent mark - 6182101013 ;
  * William Arthur - 6182101012 ;
  * Marcellius - 6182101003
  * kelompok 12
@@ -27,11 +27,11 @@ public class tbGeneticAlgo {
      * matrixSoal untuk mengisi mosaic soal yang akan dikerjakan nantinya
      * rand dengan tipe kelas tbRandomGenerator digunakan untuk merandom
      */
-    private int populationSize;
-    private double mutationRate;
+    private final int populationSize;
+    private final double mutationRate;
     private final double crossoverRate;
-    private int elitismCount;
-    private int[][] matrixSoal;
+    private final int elitismCount;
+    private final int[][] matrixSoal;
     private tbRandomGenerator rand;
     private long seed;
 
@@ -63,18 +63,16 @@ public class tbGeneticAlgo {
      * @return meng-inisialisasi populasi
      */
     public tbPopulation initPopulation(int chromosomeLength) {
-        tbPopulation population = new tbPopulation(this.populationSize, chromosomeLength, this.seed);
-        return population;
+        return new tbPopulation(this.populationSize, chromosomeLength, this.seed);
     }
 
     /**
      * Method untuk menghitung nilai fitness
-     * 
+     *
      * @param individual chromosome yang akan dihitung nilai fitnessnya
      * @return sebuah nilai yang menentukan sebuah kromosom jelek/bagus
      */
     public double calcFitness(tbIndividual individual) {
-        int correctGenes = 0;
         int numberGenes = countNumber(); // menghitung berapa banyak angka di di mosaic
 
         // everyNumberNeighbor[][0] -> menyimpan angka pada matrix
@@ -122,16 +120,14 @@ public class tbGeneticAlgo {
 
     /**
      * Method untuk menghitung berapa banyak angka dalam mosaic
-     * 
+     *
      * @return banyak angka di dalam mosaic
      */
     private int countNumber() {
         int counter = 0;
         for (int[] ints : this.matrixSoal) {
             for (int j = 0; j < this.matrixSoal[0].length; j++) {
-                if (ints[j] == -1)
-                    continue;
-                else {
+                if (ints[j] != -1) {
                     counter++;
                 }
             }
@@ -141,7 +137,7 @@ public class tbGeneticAlgo {
 
     /**
      * Method untuk menghitung banyaknya "hitam" di 9 posisi disekitarnya
-     * 
+     *
      * @param individual mosaic
      * @param i          baris
      * @param j          kolom
@@ -285,7 +281,7 @@ public class tbGeneticAlgo {
     /**
      * Menghitung nilai fitness dari populasi dengan cara menambahkan nilai
      * fitness setiap chromosome atau individu di populasi tersebut
-     * 
+     *
      * @param population populasi
      *
      */
@@ -301,14 +297,14 @@ public class tbGeneticAlgo {
     /**
      * Mengecek apakah kondisi berhenti dari sebuah looping untuk mencari solusi
      * sudah ditemukan atau belum
-     * 
+     *
      * @param population populasi
      * @return true jika telah menemukan fitness 1.0, false jika kurang dari 1.0
      */
     public boolean isTerminationConditionMet(tbPopulation population) {
         for (tbIndividual x : population.getIndividuals()) {
-            // System.out.println(x.getFitness());
-            // System.out.println(Arrays.deepToString(x.getChromosomeMatrix()));
+             System.out.println(x.getFitness());
+//             System.out.println(Arrays.deepToString(x.getChromosomeMatrix()));
             if (x.getFitness() == 1) {
                 return true;
             }
@@ -318,13 +314,13 @@ public class tbGeneticAlgo {
 
     /**
      * Memilih parent yang nanti akan dipakai untuk anaknya
-     * 
-     * @param population
+     *
+     * @param population; initial population
      * @return tbIndividual; sebuah individu hasil pemilihan parent
      */
     public tbIndividual selectParent(tbPopulation population) {
         // Untuk mendapatkan sebuah individu
-        tbIndividual individuals[] = population.getIndividuals();
+        tbIndividual[] individuals = population.getIndividuals();
         // Spin roulette wheel
         double populationFitness = population.getPopulationFitness();
         // double rouletteWheelPosition = Math.random() * populationFitness;
@@ -349,8 +345,8 @@ public class tbGeneticAlgo {
 
     /**
      * Membuat individu baru dari 2 parent
-     * 
-     * @param population
+     *
+     * @param population; initial population
      * @return tbPopulation; Populasi setelah dilakukan pemilihan parent
      */
     public tbPopulation crossoverPopulation(tbPopulation population) {
@@ -415,7 +411,7 @@ public class tbGeneticAlgo {
 
     /**
      * Method untuk melakukan mutasi gene pada individu atau chromosome
-     * 
+     *
      * @param population populasi yang ingin dilakukan mutasi
      * @return tbPopulation; Populasi yang telah dimutasi
      */
