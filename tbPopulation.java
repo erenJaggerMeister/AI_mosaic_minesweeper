@@ -1,14 +1,21 @@
-import java.sql.SQLOutput;
 import java.util.*;
 
+/**
+ * @author Lee Jacobson & Burak Kanber
+ */
 public class tbPopulation {
-    private tbIndividual population[];
-    private double populationFitness = -1;
+    private tbIndividual population[];// untuk menyimpan semua chromosome atau individu dalam satu tempat
+    private double populationFitness = -1;// atribut untuk menyimpan nilai fitness, pada saat pecarian setelah
+                                          // menghitung jumlah individu di dalam populasi, maka akan dihitung nilai
+                                          // fitness yang terbaik diantara jumlah individu untuk dijadikan nilai fitness
+                                          // populasi
 
-    // TODO!!!
-    // private tbRandomGenerator rand;
-    private long seed;
+    private long seed;// atribut untuk menyimpan nilai seed yang akan digunakan untuk random generator
 
+    /**
+     * @return method construct untuk inisialisasi
+     * @param ukuran populasi
+     */
     public tbPopulation(int populationSize) {
         this.population = new tbIndividual[populationSize];
     }

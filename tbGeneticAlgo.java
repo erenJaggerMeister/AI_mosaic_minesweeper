@@ -1,17 +1,37 @@
 import java.util.Arrays;
 
+/**
+ * @author Lee Jacobson & Burak Kanber, Genetic Algorithms in Java Basics
+ */
 public class tbGeneticAlgo {
+    /*
+     * populationSize untuk menyimpan jumlah individu di dalam satu populasi
+     * mutationRate untuk menyimpan nilai ratio melakukan mutasi
+     * crossoverRate untuk menyimpan seberapa besar dia melakukan crossover antara
+     * satu individu dengan lainnya elitismCount untuk menyimpan
+     * matrixSoal untuk mengisi mosaic soal yang akan dikerjakan nantinya
+     * rand dengan tipe kelas tbRandomGenerator digunakan untuk merandom
+     */
     private int populationSize;
     private double mutationRate;
     private final double crossoverRate;
     private int elitismCount;
     private int[][] matrixSoal;
-
-    // TODO!!!
-    // menambah seed untuk random
     private tbRandomGenerator rand;
     private long seed;
 
+    /**
+     * 
+     * @param popSize   seberapa banyak individu dalam 1 populasi
+     * @param mutRate   seberapa besar akan melakukan mutasi
+     * @param crossRate seberapa besar akan melakukan crossover antara satu individu
+     *                  dengan yang lain
+     * @param elitCount berapa banyak individu yang akan dipakai ke populasi
+     *                  selanjutnya
+     * @param matricesQ mosaic minesweeper yang diisikan dengan angka di baris dan
+     *                  kolom tertentu
+     * @param iptSeed   nilai seed
+     */
     public tbGeneticAlgo(int popSize, double mutRate, double crossRate, int elitCount, int[][] matricesQ,
             long iptSeed) {
         this.populationSize = popSize;
@@ -19,21 +39,27 @@ public class tbGeneticAlgo {
         this.crossoverRate = crossRate;
         this.elitismCount = elitCount;
         this.matrixSoal = matricesQ;
-
-        // TODO!!!
-        // pembuatan kelas random
         this.rand = new tbRandomGenerator(iptSeed);
         this.seed = iptSeed;
     }
 
+    /**
+     * @param chromosomeLength berapa banyak individu/chromosome dalam satu populasi
+     * @return meng-inisialisasi populasi
+     */
     public tbPopulation initPopulation(int chromosomeLength) {
         tbPopulation population = new tbPopulation(this.populationSize, chromosomeLength, this.seed);
         return population;
     }
 
+    /**
+     * 
+     * @param individual chromosome yang akan dihitung nilai fitnessnya
+     * @return menghitung nilai fitness
+     */
     public double calcFitness(tbIndividual individual) {
         int correctGenes = 0;
-        int numberGenes = countNumber();
+        int numberGenes = countNumber(); // menghitung berapa banyak angka di di mosaic
 
         // everyNumberNeighbor[][0] -> menyimpan angka pada matrix
         // everyNumberNeighbor[][1] -> menyimpan jumlah neighbor
@@ -78,6 +104,10 @@ public class tbGeneticAlgo {
         return fitness;
     }
 
+    /**
+     * 
+     * @return menghitung berapa banyak angka di dalam mosaic
+     */
     private int countNumber() {
         int counter = 0;
         for (int[] ints : this.matrixSoal) {
@@ -92,6 +122,14 @@ public class tbGeneticAlgo {
         return counter;
     }
 
+    /**
+     * 
+     * @param individual mosaic
+     * @param i          baris
+     * @param j          kolom
+     * @return menghitung berapa banyak "hitam" di tetangganya termasuk posisinya
+     *         sendiri
+     */
     private int[] countNeighbor(tbIndividual individual, int i, int j) {
         // int[2] -> int[0] untuk menyimpan hasil dan int[1] untuk menyimpan overflow
         int[] arr = new int[2];
@@ -191,6 +229,12 @@ public class tbGeneticAlgo {
         return arr;
     }
 
+    /**
+     * 
+     * @param population populasi
+     * @return menghitung nilai fitness dari populasi dengan cara menambahkan nilai
+     *         fitness setiap chromosome atau individu di populasi tersebut
+     */
     public void evalPopulation(tbPopulation population) {
         double populationFitness = 0;
         for (tbIndividual individual : population.getIndividuals()) {
@@ -199,6 +243,12 @@ public class tbGeneticAlgo {
         population.setPopulationFitness(populationFitness);
     }
 
+    /**
+     * 
+     * @param population populasi
+     * @return mengecek apakah kondisi berhenti dari sebuah looping untuk mencari
+     *         solusi sudah ditemukan atau belum
+     */
     public boolean isTerminationConditionMet(tbPopulation population) {
         for (tbIndividual x : population.getIndividuals()) {
             // System.out.println(x.getFitness());
@@ -210,6 +260,11 @@ public class tbGeneticAlgo {
         return false;
     }
 
+    /**
+     * 
+     * @param population
+     * @return memilih parent yang nanti akan dipakai untuk anaknya
+     */
     public tbIndividual selectParent(tbPopulation population) {
         // Get individuals
         tbIndividual individuals[] = population.getIndividuals();
@@ -232,6 +287,11 @@ public class tbGeneticAlgo {
         return individuals[population.size() - 1];
     }
 
+    /**
+     * 
+     * @param population
+     * @return membuat individu baru dari 2 parent
+     */
     public tbPopulation crossoverPopulation(tbPopulation population) {
         // Create new population
         tbPopulation newPopulation = new tbPopulation(population.size());
@@ -289,6 +349,11 @@ public class tbGeneticAlgo {
         return newPopulation;
     }
 
+    /**
+     * 
+     * @param population
+     * @return mutasi gene pada individu atau chromosome
+     */
     public tbPopulation mutatePopulation(tbPopulation population) {
         // Initialize new population
         tbPopulation newPopulation = new tbPopulation(this.populationSize);
