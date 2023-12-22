@@ -9,7 +9,8 @@ public class tbGeneticAlgo {
     private tbRandomGenerator rand; // menambah seed untuk random
     private long seed;
 
-    public tbGeneticAlgo(int popSize, double mutRate, double crossRate, int elitCount, int[][] matricesQ, long iptSeed) {
+    public tbGeneticAlgo(int popSize, double mutRate, double crossRate, int elitCount, int[][] matricesQ,
+            long iptSeed) {
         this.populationSize = popSize;
         this.mutationRate = mutRate;
         this.crossoverRate = crossRate;
@@ -63,7 +64,8 @@ public class tbGeneticAlgo {
         double fitness = (tempNeighbor - tempOverflow) / numberGenes; // variabel untuk store fitness
 
         // Store fitness
-//        System.out.println(tempNeighbor + " " + tempOverflow + "\n" + "Fitness : " + fitness);
+        // System.out.println(tempNeighbor + " " + tempOverflow + "\n" + "Fitness : " +
+        // fitness);
         individual.setFitness(fitness);
         return fitness;
     }
@@ -91,10 +93,12 @@ public class tbGeneticAlgo {
             // Out of bounds handler (atas)
             if (i != 0) {
                 // Out of bounds handler (kiri)
-                if (j != 0) arr[0] += tempMatrix[i - 1][j - 1];
+                if (j != 0)
+                    arr[0] += tempMatrix[i - 1][j - 1];
                 arr[0] += tempMatrix[i - 1][j];
                 // Out of bounds handler (kanan)
-                if (j != this.matrixSoal[0].length - 1) arr[0] += tempMatrix[i - 1][j + 1];
+                if (j != this.matrixSoal[0].length - 1)
+                    arr[0] += tempMatrix[i - 1][j + 1];
             }
 
             // Cek pada baris tersebut
@@ -129,7 +133,7 @@ public class tbGeneticAlgo {
         // karena angka 0 seharusnya tidak memiliki tetangga
         // Jika ditemukan tetangga maka, langsung tambah di arr[1] -> overflow
         else if (this.matrixSoal[i][j] == 0) {
-            arr[0] = 0;     // Set NEIGHBOR = 0
+            arr[0] = 0; // Set NEIGHBOR = 0
             // Cek 1 baris di atasnya
             // Out of bounds handler (atas)
             if (i != 0) {
@@ -168,7 +172,7 @@ public class tbGeneticAlgo {
         // Jika ditemukan angka 9 di soal, maka set OVERFLOW = 0
         // karena angka 9 selalu kurang/tidak pernah lebih
         else if (this.matrixSoal[i][j] == 9) {
-            arr[1] = 0;     // Set OVERFLOW = 0, karena selalu kekurangan neighbor
+            arr[1] = 0; // Set OVERFLOW = 0, karena selalu kekurangan neighbor
 
             // Cek 1 baris di atasnya
             // Out of bounds handler (atas)
@@ -218,8 +222,8 @@ public class tbGeneticAlgo {
 
     public boolean isTerminationConditionMet(tbPopulation population) {
         for (tbIndividual x : population.getIndividuals()) {
-//            System.out.println(x.getFitness());
-//            System.out.println(Arrays.deepToString(x.getChromosomeMatrix()));
+            // System.out.println(x.getFitness());
+            // System.out.println(Arrays.deepToString(x.getChromosomeMatrix()));
             if (x.getFitness() == 1) {
                 return true;
             }
