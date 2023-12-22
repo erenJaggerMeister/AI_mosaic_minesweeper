@@ -10,24 +10,28 @@ import java.util.Random;
  *
  */
 public class tbRandomGenerator {
-    private long seed;      // seed dari user
-    private double numbRandom;  // nilai double yang dirandom
+    private long seed; // seed dari user
+    private double numbRandom; // nilai double yang dirandom
+    private Random rand;
 
     /**
      * Constructor untuk membuat random generator
+     * 
      * @param iptSeed
      */
     public tbRandomGenerator(long iptSeed) {
         this.seed = iptSeed;
         this.numbRandom = 0.0;
+        this.rand = new Random();
+        rand.setSeed(seed);
     }
 
     /**
      * Getter untuk value random
+     * 
      * @return sebuah angka random
      */
     public double getRandom() {
-        Random rand = new Random(seed);
         this.numbRandom = rand.nextDouble();
         return this.numbRandom;
     }

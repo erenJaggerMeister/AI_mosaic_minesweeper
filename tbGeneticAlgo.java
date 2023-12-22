@@ -1,14 +1,15 @@
 import java.util.Arrays;
 
 /**
- * Sumber diambil dari buku Genetic Algorithms in Java Basics dan PPT Algoritma genetik
+ * Sumber diambil dari buku Genetic Algorithms in Java Basics dan PPT Algoritma
+ * genetik
  *
  * @author Lee Jacobson & Burak Kanber
  * @see tbIndividual untuk store kromosom
  * @see tbRandomGenerator untuk membuat random berdasarkan input seed
  *
- * Fitness :
- * - Membuat sendiri
+ *      Fitness :
+ *      - Membuat sendiri
  */
 public class tbGeneticAlgo {
     /*
@@ -61,6 +62,7 @@ public class tbGeneticAlgo {
 
     /**
      * Method untuk menghitung nilai fitness
+     * 
      * @param individual chromosome yang akan dihitung nilai fitnessnya
      * @return sebuah nilai yang menentukan sebuah kromosom jelek/bagus
      */
@@ -113,6 +115,7 @@ public class tbGeneticAlgo {
 
     /**
      * Method untuk menghitung berapa banyak angka dalam mosaic
+     * 
      * @return banyak angka di dalam mosaic
      */
     private int countNumber() {
@@ -131,6 +134,7 @@ public class tbGeneticAlgo {
 
     /**
      * Method untuk menghitung banyaknya "hitam" di 9 posisi disekitarnya
+     * 
      * @param individual mosaic
      * @param i          baris
      * @param j          kolom
@@ -177,8 +181,10 @@ public class tbGeneticAlgo {
                     arr[0] += tempMatrix[i + 1][j + 1];
             }
 
-            // If dibawah ini mengecek apabila nilai hasil lebih besar daripada angka yang dicek,
-            // maka masukan selisih (overflow) ke arr[1] -> mengindikasikan jumlah yang kelebihan
+            // If dibawah ini mengecek apabila nilai hasil lebih besar daripada angka yang
+            // dicek,
+            // maka masukan selisih (overflow) ke arr[1] -> mengindikasikan jumlah yang
+            // kelebihan
             if (arr[0] > this.matrixSoal[i][j]) {
                 arr[1] = arr[0] - this.matrixSoal[i][j]; // masukan selisih
                 arr[0] = this.matrixSoal[i][j]; // masukan menjadi angka matrix
@@ -231,7 +237,7 @@ public class tbGeneticAlgo {
         // Akan kekurangan ataupun pas nilainya
         else if (this.matrixSoal[i][j] == 9) {
             // Cek 1 baris di atasnya
-            arr[1] = 0;     // set arr[1] menjadi 0 karena tidak akan pernah kelebihan
+            arr[1] = 0; // set arr[1] menjadi 0 karena tidak akan pernah kelebihan
             // Out of bounds handler (atas)
             if (i != 0) {
                 // Out of bounds handler (kiri)
@@ -272,19 +278,23 @@ public class tbGeneticAlgo {
     /**
      * Menghitung nilai fitness dari populasi dengan cara menambahkan nilai
      * fitness setiap chromosome atau individu di populasi tersebut
+     * 
      * @param population populasi
      *
      */
     public void evalPopulation(tbPopulation population) {
         double populationFitness = 0;
         for (tbIndividual individual : population.getIndividuals()) {
-            populationFitness += calcFitness(individual);   // menghitung fitnes dari sebuah populasi dengan menghitung dari masing-masing individu
+            populationFitness += calcFitness(individual); // menghitung fitnes dari sebuah populasi dengan menghitung
+                                                          // dari masing-masing individu
         }
         population.setPopulationFitness(populationFitness);
     }
 
     /**
-     * Mengecek apakah kondisi berhenti dari sebuah looping untuk mencari solusi sudah ditemukan atau belum
+     * Mengecek apakah kondisi berhenti dari sebuah looping untuk mencari solusi
+     * sudah ditemukan atau belum
+     * 
      * @param population populasi
      * @return true jika telah menemukan fitness 1.0, false jika kurang dari 1.0
      */
@@ -301,6 +311,7 @@ public class tbGeneticAlgo {
 
     /**
      * Memilih parent yang nanti akan dipakai untuk anaknya
+     * 
      * @param population
      * @return tbIndividual; sebuah individu hasil pemilihan parent
      */
@@ -314,8 +325,9 @@ public class tbGeneticAlgo {
         // atas adalah kode asli dari sebelum pembuatan kelas random generator karena
         // menggunakan math.random()
         // bawah adalah penggunaan kelas random generator
-        double rouletteWheelPosition = rand.getRandom() * populationFitness;    // Mendapatkan posisi roulette dengan populasi yang ada
-//        double rouletteWheelPosition = Math.random() * populationFitness;
+        double rouletteWheelPosition = rand.getRandom() * populationFitness; // Mendapatkan posisi roulette dengan
+                                                                             // populasi yang ada
+        // double rouletteWheelPosition = Math.random() * populationFitness;
         // Find parent
         double spinWheel = 0;
         // Loop dilakukan untuk mengiterasi masing-masing individu
@@ -330,6 +342,7 @@ public class tbGeneticAlgo {
 
     /**
      * Membuat individu baru dari 2 parent
+     * 
      * @param population
      * @return tbPopulation; Populasi setelah dilakukan pemilihan parent
      */
@@ -341,7 +354,8 @@ public class tbGeneticAlgo {
             tbIndividual parent1 = population.getFittes(populationIndex);
             // Apply crossover terhadap individual
             if (this.crossoverRate > rand.getRandom() && populationIndex > this.elitismCount) {
-//            if (this.crossoverRate > Math.random() && populationIndex > this.elitismCount) {
+                // if (this.crossoverRate > Math.random() && populationIndex >
+                // this.elitismCount) {
                 // Initialize offspring
                 tbIndividual offspring = new tbIndividual(parent1.getChromosomeLength(), this.seed);
                 // Cari parent kedua
@@ -352,7 +366,7 @@ public class tbGeneticAlgo {
                 for (int geneIndex = 0; geneIndex < parent1.getChromosomeLength(); geneIndex++) {
                     // Gunakan gen dari setengah parent1 dan setengah parent2
                     if (0.5 > rand.getRandom()) {
-//                    if (0.5 > Math.random()) {
+                        // if (0.5 > Math.random()) {
                         // offspring.setGene(geneIndex,
                         // parent1.getGene(geneIndex));
                         offspring.setGene(geneIndex, parent1.getGene(geneIndex));
@@ -394,6 +408,7 @@ public class tbGeneticAlgo {
 
     /**
      * Method untuk melakukan mutasi gene pada individu atau chromosome
+     * 
      * @param population populasi yang ingin dilakukan mutasi
      * @return tbPopulation; Populasi yang telah dimutasi
      */
@@ -406,7 +421,7 @@ public class tbGeneticAlgo {
             // Loop berdasarkan masing-masing gen pada individu
             for (int geneIndex = 0; geneIndex < individual.getChromosomeLength(); geneIndex++) {
                 if (populationIndex >= this.elitismCount) {
-//                    if (this.mutationRate > Math.random()) {
+                    // if (this.mutationRate > Math.random()) {
                     if (this.mutationRate > rand.getRandom()) {
                         int newGene = 1;
                         if (individual.getGene(geneIndex) == 1) {
