@@ -2,8 +2,10 @@ public class tbIndividual {
     private final int[] chromosome;
     private double fitness = -1;
     private long seed;
+
     /**
      * tbIndividual adalah gabungan gene, membentuk sebuah chromosome
+     * 
      * @param chromosome
      */
     public tbIndividual(int[] chromosome) {
@@ -11,17 +13,18 @@ public class tbIndividual {
     }
 
     /**
-    * tbIndividual adalah gabungan gene, membentuk sebuah chromosome
+     * tbIndividual adalah gabungan gene, membentuk sebuah chromosome
+     * 
      * @param chromosomeLength
      * @param iptSeed
      */
     public tbIndividual(int chromosomeLength, long iptSeed) {
-        //konstruktor ini akan membuat chromosome terlebih dahulu dengan cara random
+        // konstruktor ini akan membuat chromosome terlebih dahulu dengan cara random
         this.chromosome = new int[chromosomeLength];
         this.seed = iptSeed;
         tbRandomGenerator rand = new tbRandomGenerator(iptSeed);
 
-        //untul setiap gene dari chromosome
+        // untul setiap gene dari chromosome
         for (int gene = 0; gene < chromosomeLength; gene++) {
             if (0.5 < rand.getRandom()) {
                 this.setGene(gene, 1);
@@ -33,6 +36,7 @@ public class tbIndividual {
 
     /**
      * Getter chromosome dalam bentuk array
+     * 
      * @return chromosome
      */
     public int[] getChromosome() {
@@ -41,12 +45,13 @@ public class tbIndividual {
 
     /**
      * getter chromosome dalam bentuk matrix
+     * 
      * @return matrix
      */
     public int[][] getChromosomeMatrix() {
         int sqrt = (int) Math.sqrt(this.chromosome.length);
         int[][] tempMatrix = new int[sqrt][sqrt];
-        //untuk setiap index dari matrix
+        // untuk setiap index dari matrix
         for (int i = 0; i < sqrt; i++) {
             for (int j = 0; j < sqrt; j++) {
                 int indexChromosome = j + (i * sqrt);
@@ -55,30 +60,33 @@ public class tbIndividual {
         }
         return tempMatrix;
     }
-    //getter chromosome length
+
+    // getter chromosome length
     public int getChromosomeLength() {
         return this.chromosome.length;
     }
 
-    //setter gene
+    // setter gene
     public void setGene(int offset_1, int gene) {
         this.chromosome[offset_1] = gene;
     }
 
-    //getter gene
+    // getter gene
     public int getGene(int offset_1) {
         return this.chromosome[offset_1];
     }
-    //setter fitness
+
+    // setter fitness
     public void setFitness(double fitness) {
         this.fitness = fitness;
     }
-    //getter fitness
+
+    // getter fitness
     public double getFitness() {
         return this.fitness;
     }
 
-    //print chromosome dalam bnetuk matrix
+    // print chromosome dalam bnetuk matrix
     @Override
     public String toString() {
         int sqrt = (int) Math.sqrt(this.chromosome.length);

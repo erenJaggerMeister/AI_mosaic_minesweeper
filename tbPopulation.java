@@ -1,13 +1,14 @@
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class tbPopulation {
-    private tbIndividual population[]; //pupulasi
-    private double populationFitness = -1; //fitness dari populasi ini
+    private tbIndividual population[];// pupulasi
+    private double populationFitness = -1;// fitness dari populasi ini
     private long seed;
 
     /**
-     * tbPopulaation adalah gabungan dari individual yang disimpan dalam sebuah array
+     * tbPopulaation adalah gabungan dari individual yang disimpan dalam sebuah
+     * array
+     * 
      * @param populationSize
      */
     public tbPopulation(int populationSize) {
@@ -15,7 +16,9 @@ public class tbPopulation {
     }
 
     /**
-     * tbPopulaation adalah gabungan dari individual yang disimpan dalam sebuah array
+     * tbPopulaation adalah gabungan dari individual yang disimpan dalam sebuah
+     * array
+     * 
      * @param populationSize
      * @param chromosomeLength
      * @param iptSeed
@@ -23,24 +26,26 @@ public class tbPopulation {
     public tbPopulation(int populationSize, int chromosomeLength, long iptSeed) {
         this.population = new tbIndividual[populationSize];
         this.seed = iptSeed;
-        //untuk setiap slot populasi, insialisasi individualnya terlebih dahulu
+        // untuk setiap slot populasi, insialisasi individualnya terlebih dahulu
         for (int individualCount = 0; individualCount < populationSize; individualCount++) {
             tbIndividual individual = new tbIndividual(chromosomeLength, this.seed);
             this.population[individualCount] = individual;
         }
     }
-    //getter individual
+
+    // getter individual
     public tbIndividual[] getIndividuals() {
         return this.population;
     }
-    
+
     /**
      * Fungsi untuk mendapatkan fittest individu dari sebuah pupulasi
+     * 
      * @param offset
      * @return
      */
     public tbIndividual getFittes(int offset) {
-        //override fungsi compare, agar mudah dilakukan sort
+        // override fungsi compare, agar mudah dilakukan sort
         Arrays.sort(this.population, new Comparator<tbIndividual>() {
             @Override
             public int compare(tbIndividual o1, tbIndividual o2) {
@@ -60,23 +65,27 @@ public class tbPopulation {
         return this.population[offset];
     }
 
-    //setter population fitness
+    // setter population fitness
     public void setPopulationFitness(double fitness) {
         this.populationFitness = fitness;
     }
-    //getter population fitness
+
+    // getter population fitness
     public double getPopulationFitness() {
         return this.populationFitness;
     }
-    //getter poopulation size
+
+    // getter poopulation size
     public int size() {
         return this.population.length;
     }
-    //setter tbIndividual
+
+    // setter tbIndividual
     public tbIndividual setIndividual(int offset, tbIndividual individual) {
         return population[offset] = individual;
     }
-    //getter tbIndividual
+
+    // getter tbIndividual
     public tbIndividual getIndividual(int offset) {
         return population[offset];
     }

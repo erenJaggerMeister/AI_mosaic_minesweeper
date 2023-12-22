@@ -8,7 +8,7 @@ public class tbAllOnesGA {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String inputNamaFile = "";
-        //masukan berupa file txt dengan format penulisan sbb
+        // masukan berupa file txt dengan format penulisan sbb
         /*
          * seed
          * size
@@ -17,34 +17,28 @@ public class tbAllOnesGA {
          * contoh:
          * 8500
          * 5
-            1 -1 1 -1 2
-            -1 -1 -1 -1 -1
-            -1 4 -1 -1 5
-            -1 6 8 7 -1
-            -1 4 6 -1 2
+         * 1 -1 1 -1 2
+         * -1 -1 -1 -1 -1
+         * -1 4 -1 -1 5
+         * -1 6 8 7 -1
+         * -1 4 6 -1 2
          */
-
-         //input namaFile.txt
         System.out.print("Silahkan masukkan file input anda : ");
-        inputNamaFile = sc.next(); 
+        inputNamaFile = sc.next();
+        //
         try {
-            //input dari file.txt
+            // input dari file.txt
             File file = new File(inputNamaFile);
             Scanner scanner = new Scanner(file);
             // System.out.println("Enter Seed for Random :");
             // long seed = sc.nextLong();
-
-            //seed
             long seed = scanner.nextLong();
 
             // System.out.println("Enter Matrix size :");
             // int matrixSize = sc.nextInt();
-
-            //matrix size
             int matrixSize = scanner.nextInt();
 
             // System.out.println("Enter Matrix :");
-            //input matrix
             int[][] matrixMosaic = new int[matrixSize][matrixSize];
             // inisialisasi
             for (int i = 0; i < matrixSize; i++) {
@@ -60,40 +54,40 @@ public class tbAllOnesGA {
                     // -1 4 6 -1 2
                 }
             }
-            //inisialisasi genetic algorithm, (ditentukan sendiri) population size = 100, mutation rate = 0.05, cross rate = 0.95, elit count = 0 
+
+            // inisialisasi genetic algorithm, (ditentukan sendiri) population size = 100,
+            // mutation rate = 0.05, cross rate = 0.95, elit count = 0
             tbGeneticAlgo ga = new tbGeneticAlgo(100, 0.05, 0.95, 0, matrixMosaic, seed);
-            //inisialisasi population dengan ukuran matrix size * size
+            // inisialisasi population dengan ukuran matrix size * size
             tbPopulation population = ga.initPopulation(matrixSize * matrixSize);
 
-            //evaluasi population
+            // evaluasi population
             ga.evalPopulation(population);
-            //varuable generation counter
+            // varuable generation counter
             int generation = 1;
             // System.out.println(ga.isTerminationConditionMet(population));
-            //selama terminate condition belum dipenuhi
-            while (ga.isTerminationConditionMet(population) == false) { 
+            // selama terminate condition belum dipenuhi
+            while (ga.isTerminationConditionMet(population) == false) {
                 // System.out.println("Masuk dalam loop");
                 // System.out.println(ga.isTerminationConditionMet(population));
-
                 // Apply crossover
                 population = ga.crossoverPopulation(population);
                 // Apply mutation
                 population = ga.mutatePopulation(population);
                 // Evaluasi populasi
                 ga.evalPopulation(population);
+                // Increment generasinya
 
                 // System.out.println("generation = " + generation + "\n" +
                 // population.getFittes(0).toString());
-                                // Increment generasinya
-
-
                 generation++;
                 if (generation == 2147483647) {
                     break;
                 }
             }
 
-            // Output fittest individual from population, nama filenya adalah outputHasil.txt
+            // Output fittest individual from population, nama filenya adalah
+            // outputHasil.txt
             String outputFileName = "outputHasil.txt";
             try (PrintWriter writer = new PrintWriter(outputFileName)) {
                 writer.println("Found solution in " + generation + " generations");
