@@ -4,6 +4,15 @@ import java.util.*;
 import javax.print.attribute.standard.PrinterName;
 import java.io.*;
 
+/**
+ * Ini adalah Class Main yang akan di Run
+ *
+ * Input :
+ * Berupa file yang terdiri dari :
+ * 1.   input seed -> seed
+ * 2.   input matrix size -> size
+ * 3-n. input anggota matrix
+ */
 public class tbAllOnesGA {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -36,10 +45,10 @@ public class tbAllOnesGA {
 
             // System.out.println("Enter Matrix size :");
             // int matrixSize = sc.nextInt();
-            int matrixSize = scanner.nextInt();
+            int matrixSize = scanner.nextInt();     // input ukuran matrix
 
             // System.out.println("Enter Matrix :");
-            int[][] matrixMosaic = new int[matrixSize][matrixSize];
+            int[][] matrixMosaic = new int[matrixSize][matrixSize]; // input ukuran matrix
             // inisialisasi
             for (int i = 0; i < matrixSize; i++) {
                 for (int j = 0; j < matrixSize; j++) {
@@ -93,8 +102,9 @@ public class tbAllOnesGA {
                 writer.println("Found solution in " + generation + " generations");
                 writer.println("Best solution: " + "\n" + population.getFittes(0).toString());
             }
+            System.out.print("Program telah selesai, cek outputHasil.txt");
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            e.printStackTrace();        // output error
         }
 
     }

@@ -1,3 +1,15 @@
+/**
+ * Class tbIndividual adalah class yang digunakan untuk menyimpan suatu individu/ kromosom
+ *
+ * Terdiri dari :
+ * - kromosom -> int[] dengan ukuran matrix size * matrix size
+ * - fitness -> sebagai nilai evaluasi sebuah kromosom lebih baik/jelek dibandingkan kromosom lainnya
+ * - seed -> sebuah angka yang digunakan untuk random generator
+ *
+ * Referensi :
+ * Sumber diambil dari buku Genetic Algorithms in Java Basics dan PPT Algoritma genetik
+ * @author Lee Jacobson & Burak Kanber
+ */
 public class tbIndividual {
     private final int[] chromosome;
     private double fitness = -1;
@@ -22,7 +34,7 @@ public class tbIndividual {
         // konstruktor ini akan membuat chromosome terlebih dahulu dengan cara random
         this.chromosome = new int[chromosomeLength];
         this.seed = iptSeed;
-        tbRandomGenerator rand = new tbRandomGenerator(iptSeed);
+        tbRandomGenerator rand = new tbRandomGenerator(this.seed);
 
         // untul setiap gene dari chromosome
         for (int gene = 0; gene < chromosomeLength; gene++) {
@@ -61,36 +73,56 @@ public class tbIndividual {
         return tempMatrix;
     }
 
-    // getter chromosome length
+    /**
+     * Getter chromosome length
+     * @return sebuah ukuran dari kromosom
+     */
     public int getChromosomeLength() {
         return this.chromosome.length;
     }
 
-    // setter gene
+    /**
+     * Setter untuk gen
+     * @param offset_1 sebuah index untuk mengakses kromosom tsb
+     * @param gene gen yang akan menggantikan nilai gen lama
+     */
     public void setGene(int offset_1, int gene) {
         this.chromosome[offset_1] = gene;
     }
 
-    // getter gene
+    /**
+     * Getter untuk gen
+     * @param offset_1 untuk mengakses kira-kira index gen mana yang akan diprint
+     * @return sebuah gen berdasarkan offset
+     */
     public int getGene(int offset_1) {
         return this.chromosome[offset_1];
     }
 
-    // setter fitness
+    /**
+     * Setter fitness
+     * @param fitness sebuah value yang mendeterminasi sebuah solusi lebih baik/jelek dari kromosom lain
+     */
     public void setFitness(double fitness) {
         this.fitness = fitness;
     }
 
-    // getter fitness
+    /**
+     * Getter untuk fitness
+     * @return nilai fitness dari sebuah kromosom
+     */
     public double getFitness() {
         return this.fitness;
     }
 
-    // print chromosome dalam bnetuk matrix
+    /**
+     * Override method toString untuk memprint sebuah kromosom menjadi matrix
+     * @return String
+     */
     @Override
     public String toString() {
-        int sqrt = (int) Math.sqrt(this.chromosome.length);
-        StringBuilder output = new StringBuilder();
+        int sqrt = (int) Math.sqrt(this.chromosome.length); // gunakan akar karena ukuran matrix adalah size matrix * size matrix
+        StringBuilder output = new StringBuilder(); // string builder untuk menyimpan output
         for (int gene_1 = 0; gene_1 < sqrt; gene_1++) {
             for (int gene_2 = 0; gene_2 < sqrt; gene_2++) {
                 output.append(this.chromosome[gene_1 * sqrt + gene_2]).append(" ");

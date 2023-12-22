@@ -1,5 +1,11 @@
 import java.util.*;
 
+/**
+ * Class ini digunakan untuk menyimpan banyak kromosom
+ *
+ * Sumber diambil dari buku Genetic Algorithms in Java Basics dan PPT Algoritma genetik
+ * @author Lee Jacobson & Burak Kanber
+ */
 public class tbPopulation {
     private tbIndividual population[];// pupulasi
     private double populationFitness = -1;// fitness dari populasi ini
@@ -46,6 +52,7 @@ public class tbPopulation {
      */
     public tbIndividual getFittes(int offset) {
         // override fungsi compare, agar mudah dilakukan sort
+        // Sort array berdasarkan fitness yang ada pada masing-masing individu
         Arrays.sort(this.population, new Comparator<tbIndividual>() {
             @Override
             public int compare(tbIndividual o1, tbIndividual o2) {
