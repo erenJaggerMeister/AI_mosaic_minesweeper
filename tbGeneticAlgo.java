@@ -49,6 +49,7 @@ public class tbGeneticAlgo {
      */
     public tbPopulation initPopulation(int chromosomeLength) {
         tbPopulation population = new tbPopulation(this.populationSize, chromosomeLength, this.seed);
+        tbPopulation population = new tbPopulation(this.populationSize, chromosomeLength, this.seed);
         return population;
     }
 
@@ -100,6 +101,8 @@ public class tbGeneticAlgo {
         // Store fitness
         // System.out.println(tempNeighbor + " " + tempOverflow + "\n" + "Fitness : " +
         // fitness);
+        // System.out.println(tempNeighbor + " " + tempOverflow + "\n" + "Fitness : " +
+        // fitness);
         individual.setFitness(fitness);
         return fitness;
     }
@@ -140,7 +143,11 @@ public class tbGeneticAlgo {
             if (i != 0) {
                 if (j != 0)
                     arr[0] += tempMatrix[i - 1][j - 1];
+                if (j != 0)
+                    arr[0] += tempMatrix[i - 1][j - 1];
                 arr[0] += tempMatrix[i - 1][j];
+                if (j != this.matrixSoal[0].length - 1)
+                    arr[0] += tempMatrix[i - 1][j + 1];
                 if (j != this.matrixSoal[0].length - 1)
                     arr[0] += tempMatrix[i - 1][j + 1];
             }
@@ -226,6 +233,7 @@ public class tbGeneticAlgo {
             }
         }
         // System.out.println(Arrays.toString(arr));
+        // System.out.println(Arrays.toString(arr));
         return arr;
     }
 
@@ -253,6 +261,8 @@ public class tbGeneticAlgo {
         for (tbIndividual x : population.getIndividuals()) {
             // System.out.println(x.getFitness());
             // System.out.println(Arrays.deepToString(x.getChromosomeMatrix()));
+            // System.out.println(x.getFitness());
+            // System.out.println(Arrays.deepToString(x.getChromosomeMatrix()));
             if (x.getFitness() == 1) {
                 return true;
             }
@@ -270,6 +280,12 @@ public class tbGeneticAlgo {
         tbIndividual individuals[] = population.getIndividuals();
         // Spin roulette wheel
         double populationFitness = population.getPopulationFitness();
+        // double rouletteWheelPosition = Math.random() * populationFitness;
+        // TODO!!!
+        // atas adalah kode asli dari sebelum pembuatan kelas random generator karena
+        // menggunakan math.random()
+        // bawah adalah penggunaan kelas random generator
+        double rouletteWheelPosition = rand.getRandom() * populationFitness;
         // double rouletteWheelPosition = Math.random() * populationFitness;
         // TODO!!!
         // atas adalah kode asli dari sebelum pembuatan kelas random generator karena
@@ -300,11 +316,15 @@ public class tbGeneticAlgo {
             tbIndividual parent1 = population.getFittes(populationIndex);
             // Apply crossover to this individual?
             if (this.crossoverRate > rand.getRandom() && populationIndex > this.elitismCount) {
+            if (this.crossoverRate > rand.getRandom() && populationIndex > this.elitismCount) {
                 // Initialize offspring
+                tbIndividual offspring = new tbIndividual(parent1.getChromosomeLength(), this.seed);
                 tbIndividual offspring = new tbIndividual(parent1.getChromosomeLength(), this.seed);
                 // Find second parent
                 tbIndividual parent2 = selectParent(population);
                 // Loop over genome
+                // TODO!!!
+                // silahkan matikan komentar jika ingin menjalankan
                 // TODO!!!
                 // silahkan matikan komentar jika ingin menjalankan
                 for (int geneIndex = 0; geneIndex < parent1.getChromosomeLength(); geneIndex++) {
@@ -319,6 +339,26 @@ public class tbGeneticAlgo {
                         offspring.setGene(geneIndex, parent2.getGene(geneIndex));
                     }
                 }
+
+                // TODO!!!
+                // pembagian chromosome split 2
+                // misal 111000111 -> 111|000|111 chromosome 1
+                // misal 000111000 -> 000|111|000 chromosome 2
+                // maka menjadi 111|111|1111
+                // for (int geneIndex = offspring.getChromosomeLength() / 3; geneIndex <
+                // (offspring.getChromosomeLength()
+                // - (offspring.getChromosomeLength() / 3)); geneIndex++) {
+                // if (0.5 > Math.random()) {
+                // // offspring.setGene(geneIndex,
+                // // parent1.getGene(geneIndex));
+                // offspring.setGene(geneIndex, parent1.getGene(geneIndex));
+                // } else {
+                // // offspring.setGene(geneIndex,
+                // // parent2.getGene(geneIndex));
+                // offspring.setGene(geneIndex, parent2.getGene(geneIndex));
+                // }
+                // }
+                //
 
                 // TODO!!!
                 // pembagian chromosome split 2

@@ -20,6 +20,24 @@ public class tbRandomGenerator {
     // Scanner scanner = new Scanner(System.in);
     // System.out.print("Enter a seed for the genetic algorithm: ");
     // long seed = scanner.nextLong();
+    private long seed;
+    private double numbRandom;
+
+    public tbRandomGenerator(long iptSeed) {
+        this.seed = iptSeed;
+        this.numbRandom = 0.0;
+    }
+
+    public double getRandom() {
+        Random rand = new Random(seed);
+        this.numbRandom = rand.nextDouble();
+        return this.numbRandom;
+    }
+
+    // public static void main(String[] args) {
+    // Scanner scanner = new Scanner(System.in);
+    // System.out.print("Enter a seed for the genetic algorithm: ");
+    // long seed = scanner.nextLong();
 
     // Random random = new Random(seed);
 
