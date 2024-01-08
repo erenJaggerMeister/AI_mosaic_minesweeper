@@ -71,15 +71,9 @@ public class tbAllOnesGA {
                 }
             }
 
-            // inisialisasi genetic algorithm, (ditentukan sendiri)
-            // Contoh salah satu yang digunakan :
-            // population size = 100, mutation rate = 0.05, cross rate = 0.95, elit count = 0
-            int popSize = scanner.nextInt();
-            double mutRate = scanner.nextDouble();
-            double crossRate = scanner.nextDouble();
-            int elitCount = scanner.nextInt();
-
-            tbGeneticAlgo ga = new tbGeneticAlgo(popSize, mutRate, crossRate, elitCount, matrixMosaic, seed);
+            // inisialisasi genetic algorithm, (ditentukan sendiri) population size = 100,
+            // mutation rate = 0.05, cross rate = 0.95, elit count = 0
+            tbGeneticAlgo ga = new tbGeneticAlgo(100, 0.05, 0.95, 0, matrixMosaic, seed);
             // inisialisasi population dengan ukuran matrix size * size
             tbPopulation population = ga.initPopulation(matrixSize * matrixSize);
 
@@ -102,7 +96,7 @@ public class tbAllOnesGA {
 
                 // System.out.println("generation = " + generation + "\n" +
                 // population.getFittes(0).toString());
-                generation++;           // ketika lebih dari batas integer, maka break karena tidak dapat menampung jumlah generasi
+                generation++;
                 if (generation == 2147483647) {
                     break;
                 }

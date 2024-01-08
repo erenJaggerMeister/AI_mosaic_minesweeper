@@ -4,6 +4,7 @@
  * Marcellius - 6182101003
  * kelompok 12
  */
+//
 /**
  * Class tbIndividual adalah class yang digunakan untuk menyimpan suatu
  * individu/ kromosom
@@ -28,7 +29,7 @@ public class tbIndividual {
     /**
      * tbIndividual adalah gabungan gene, membentuk sebuah chromosome
      * 
-     * @param chromosome sebuah matrix kromosom
+     * @param chromosome
      */
     public tbIndividual(int[] chromosome) {
         this.chromosome = chromosome;
@@ -37,8 +38,8 @@ public class tbIndividual {
     /**
      * tbIndividual adalah gabungan gene, membentuk sebuah chromosome
      * 
-     * @param chromosomeLength ukuran suatu kromosom
-     * @param iptSeed seed
+     * @param chromosomeLength
+     * @param iptSeed
      */
     public tbIndividual(int chromosomeLength, long iptSeed) {
         // konstruktor ini akan membuat chromosome terlebih dahulu dengan cara random
