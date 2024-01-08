@@ -27,11 +27,11 @@ public class tbGeneticAlgo {
      * matrixSoal untuk mengisi mosaic soal yang akan dikerjakan nantinya
      * rand dengan tipe kelas tbRandomGenerator digunakan untuk merandom
      */
-    private int populationSize;
-    private double mutationRate;
+    private final int populationSize;
+    private final double mutationRate;
     private final double crossoverRate;
-    private int elitismCount;
-    private int[][] matrixSoal;
+    private final int elitismCount;
+    private final int[][] matrixSoal;
     private tbRandomGenerator rand;
     private long seed;
 
@@ -63,8 +63,7 @@ public class tbGeneticAlgo {
      * @return meng-inisialisasi populasi
      */
     public tbPopulation initPopulation(int chromosomeLength) {
-        tbPopulation population = new tbPopulation(this.populationSize, chromosomeLength, this.seed);
-        return population;
+        return new tbPopulation(this.populationSize, chromosomeLength, this.seed);
     }
 
     /**
@@ -74,7 +73,6 @@ public class tbGeneticAlgo {
      * @return sebuah nilai yang menentukan sebuah kromosom jelek/bagus
      */
     public double calcFitness(tbIndividual individual) {
-        int correctGenes = 0;
         int numberGenes = countNumber(); // menghitung berapa banyak angka di di mosaic
 
         // everyNumberNeighbor[][0] -> menyimpan angka pada matrix
@@ -129,9 +127,7 @@ public class tbGeneticAlgo {
         int counter = 0;
         for (int[] ints : this.matrixSoal) {
             for (int j = 0; j < this.matrixSoal[0].length; j++) {
-                if (ints[j] == -1)
-                    continue;
-                else {
+                if (ints[j] != -1) {
                     counter++;
                 }
             }
@@ -307,7 +303,7 @@ public class tbGeneticAlgo {
      */
     public boolean isTerminationConditionMet(tbPopulation population) {
         for (tbIndividual x : population.getIndividuals()) {
-            // System.out.println(x.getFitness());
+            System.out.println(x.getFitness());
             // System.out.println(Arrays.deepToString(x.getChromosomeMatrix()));
             if (x.getFitness() == 1) {
                 return true;
@@ -319,12 +315,12 @@ public class tbGeneticAlgo {
     /**
      * Memilih parent yang nanti akan dipakai untuk anaknya
      * 
-     * @param population
+     * @param population; initial population
      * @return tbIndividual; sebuah individu hasil pemilihan parent
      */
     public tbIndividual selectParent(tbPopulation population) {
         // Untuk mendapatkan sebuah individu
-        tbIndividual individuals[] = population.getIndividuals();
+        tbIndividual[] individuals = population.getIndividuals();
         // Spin roulette wheel
         double populationFitness = population.getPopulationFitness();
         // double rouletteWheelPosition = Math.random() * populationFitness;
@@ -350,7 +346,7 @@ public class tbGeneticAlgo {
     /**
      * Membuat individu baru dari 2 parent
      * 
-     * @param population
+     * @param population; initial population
      * @return tbPopulation; Populasi setelah dilakukan pemilihan parent
      */
     public tbPopulation crossoverPopulation(tbPopulation population) {
